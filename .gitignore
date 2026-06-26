@@ -12,6 +12,7 @@ target/
 .settings
 .springBeans
 .sts4-cache
+lotus_specification.xlsx
 
 ### IntelliJ IDEA ###
 .idea
