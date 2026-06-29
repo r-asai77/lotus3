@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ja">
+<head th:replace="~{user/layout/base :: head('ユーザー情報')}"></head>
+<body>
+
+<nav th:replace="~{user/layout/base :: header}"></nav>
+
+<div class="content-wrapper container-fluid px-4 py-4">
+
+    <!-- ページタイトル -->
+    <div class="mb-4">
+        <h5 class="fw-bold mb-0"><i class="bi bi-person-gear text-primary me-2"></i>アカウント情報</h5>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb small mb-0">
+                <li class="breadcrumb-item"><a th:href="@{/}" class="text-decoration-none">トップ</a></li>
+                <li class="breadcrumb-item active">アカウント情報</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- サイドバー -->
+        <div class="col-lg-3">
+            <div th:replace="~{user/layout/base :: accountSidebar('profile')}"></div>
+        </div>
+
+        <!-- メインコンテンツ -->
+        <div class="col-lg-9">
+
+            <!-- 基本情報 -->
+            <div class="card mb-4">
+                <div class="card-header bg-white py-3">
+                    <i class="bi bi-person-fill me-2 text-primary"></i>基本情報
+                </div>
+                <div class="card-body p-4">
+                    <form th:action="@{/account}" method="post">
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-muted">ログインID</label>
+                            <input type="text" class="form-control bg-light" value="yamada_taro" readonly>
+                            <div class="form-text">ログインIDは変更できません</div>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">
+                                    姓 <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" name="lastName" class="form-control" value="山田">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-semibold">
+                                    名 <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" name="firstName" class="form-control" value="太郎">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">
+                                メールアドレス <span class="text-danger">*</span>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                <input type="email" name="email" class="form-control" value="yamada@example.com">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label small fw-semibold">
+                                電話番号 <span class="text-danger">*</span>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                                <input type="tel" name="phoneNumber" class="form-control" value="09012345678"
+                                       placeholder="ハイフンなし（10〜11桁）">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="bi bi-check-circle me-1"></i>基本情報を更新する
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- パスワード変更 -->
+            <div class="card">
+                <div class="card-header bg-white py-3">
+                    <i class="bi bi-shield-lock-fill me-2 text-warning"></i>パスワード変更
+                </div>
+                <div class="card-body p-4">
+                    <form th:action="@{/account/password}" method="post">
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">
+                                現在のパスワード <span class="text-danger">*</span>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                                <input type="password" name="currentPassword" class="form-control"
+                                       placeholder="現在のパスワードを入力">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">
+                                新しいパスワード <span class="text-danger">*</span>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                                <input type="password" name="newPassword" class="form-control"
+                                       placeholder="6文字以上">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label small fw-semibold">
+                                新しいパスワード（確認） <span class="text-danger">*</span>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                                <input type="password" name="confirmPassword" class="form-control"
+                                       placeholder="新しいパスワードを再入力">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-warning px-4">
+                            <i class="bi bi-shield-check me-1"></i>パスワードを変更する
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="~{user/layout/base :: scripts}"></th:block>
+</body>
+</html>

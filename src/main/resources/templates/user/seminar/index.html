@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head th:replace="~{user/layout/base :: head('セミナー申込')}"></head>
+<body>
+
+<nav th:replace="~{user/layout/base :: header}"></nav>
+
+<div class="content-wrapper container-fluid px-4 py-4">
+
+    <!-- ページタイトル -->
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        <div>
+            <h5 class="fw-bold mb-0"><i class="bi bi-calendar-check-fill text-info me-2"></i>セミナー申込</h5>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb small mb-0">
+                    <li class="breadcrumb-item"><a th:href="@{/}" class="text-decoration-none">トップ</a></li>
+                    <li class="breadcrumb-item active">セミナー申込</li>
+                </ol>
+            </nav>
+        </div>
+        <!-- カートボタン -->
+        <a th:href="@{/seminar/cart}" class="btn btn-warning position-relative">
+            <i class="bi bi-cart3 me-1"></i>カートを見る
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                2
+            </span>
+        </a>
+    </div>
+
+    <!-- 検索フォーム -->
+    <div class="card mb-3">
+        <div class="card-header bg-white py-2 d-flex align-items-center justify-content-between"
+             style="cursor:pointer" data-bs-toggle="collapse" data-bs-target="#searchForm">
+            <span class="fw-semibold small"><i class="bi bi-search me-1"></i>絞り込み</span>
+            <i class="bi bi-chevron-down"></i>
+        </div>
+        <div class="collapse show" id="searchForm">
+            <div class="card-body">
+                <form th:action="@{/seminar}" method="get">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label small fw-semibold">セミナー種別</label>
+                            <select name="type" class="form-select form-select-sm">
+                                <option value="">すべて</option>
+                                <option value="seminar">セミナー</option>
+                                <option value="online">オンライン</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small fw-semibold">対象資格</label>
+                            <select name="qualification" class="form-select form-select-sm">
+                                <option value="">すべて</option>
+                                <option value="1">資格A</option>
+                                <option value="2">資格B</option>
+                                <option value="3">資格C</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small fw-semibold">受講開始日（以降）</label>
+                            <input type="date" name="dateFrom" class="form-control form-control-sm">
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2 mt-3">
+                        <button type="submit" class="btn btn-primary btn-sm px-4">
+                            <i class="bi bi-search me-1"></i>絞り込む
+                        </button>
+                        <a th:href="@{/seminar}" class="btn btn-outline-secondary btn-sm px-4">
+                            <i class="bi bi-x-circle me-1"></i>クリア
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 件数 -->
+    <div class="d-flex align-items-center justify-content-between mb-2">
+        <span class="small text-muted">合計：<strong>6</strong>件のセミナー日程</span>
+    </div>
+
+    <!-- セミナー日程一覧 -->
+    <div class="card mb-3">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4" style="width:90px">種別</th>
+                        <th>セミナー名 / 日程</th>
+                        <th style="width:130px">対象資格</th>
+                        <th style="width:80px">定員</th>
+                        <th style="width:110px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 申込可能（未申込） -->
+                    <tr>
+                        <td class="ps-4"><span class="badge bg-info text-dark">セミナー</span></td>
+                        <td>
+                            <div class="fw-semibold">資格A取得セミナー 基礎コース</div>
+                            <div class="small text-muted mt-1">
+                                <i class="bi bi-calendar me-1"></i>受講期間：2026-07-10 〜 2026-07-10
+                                <span class="ms-3"><i class="bi bi-geo-alt me-1"></i>東京会場</span>
+                            </div>
+                        </td>
+                        <td><span class="badge bg-light text-dark border">資格A</span></td>
+                        <td class="small text-muted text-center">30名</td>
+                        <td class="text-center">
+                            <button class="btn btn-primary btn-sm">
+                                <i class="bi bi-cart-plus me-1"></i>カートに追加
+                            </button>
+                        </td>
+                    </tr>
+                    <!-- カート追加済 -->
+                    <tr class="table-warning">
+                        <td class="ps-4"><span class="badge bg-info text-dark">セミナー</span></td>
+                        <td>
+                            <div class="fw-semibold">資格A取得セミナー 応用コース</div>
+                            <div class="small text-muted mt-1">
+                                <i class="bi bi-calendar me-1"></i>受講期間：2026-07-17 〜 2026-07-17
+                                <span class="ms-3"><i class="bi bi-geo-alt me-1"></i>大阪会場</span>
+                            </div>
+                        </td>
+                        <td><span class="badge bg-light text-dark border">資格A</span></td>
+                        <td class="small text-muted text-center">25名</td>
+                        <td class="text-center">
+                            <button class="btn btn-warning btn-sm" disabled>
+                                <i class="bi bi-cart-check me-1"></i>カート追加済
+                            </button>
+                        </td>
+                    </tr>
+                    <!-- 申込可能（オンライン） -->
+                    <tr>
+                        <td class="ps-4"><span class="badge bg-success">オンライン</span></td>
+                        <td>
+                            <div class="fw-semibold">資格B入門オンラインセミナー</div>
+                            <div class="small text-muted mt-1">
+                                <i class="bi bi-calendar me-1"></i>配信期間：2026-07-01 〜 2026-07-31
+                                <span class="ms-3"><i class="bi bi-camera-video me-1"></i>オンライン配信</span>
+                            </div>
+                        </td>
+                        <td><span class="badge bg-light text-dark border">資格B</span></td>
+                        <td class="small text-muted text-center">制限なし</td>
+                        <td class="text-center">
+                            <button class="btn btn-warning btn-sm" disabled>
+                                <i class="bi bi-cart-check me-1"></i>カート追加済
+                            </button>
+                        </td>
+                    </tr>
+                    <!-- 申込済（合否未定） -->
+                    <tr>
+                        <td class="ps-4"><span class="badge bg-info text-dark">セミナー</span></td>
+                        <td>
+                            <div class="fw-semibold">資格C上級セミナー 集中コース</div>
+                            <div class="small text-muted mt-1">
+                                <i class="bi bi-calendar me-1"></i>受講期間：2026-06-20 〜 2026-06-21
+                                <span class="ms-3"><i class="bi bi-geo-alt me-1"></i>名古屋会場</span>
+                            </div>
+                        </td>
+                        <td><span class="badge bg-light text-dark border">資格C</span></td>
+                        <td class="small text-muted text-center">20名</td>
+                        <td class="text-center">
+                            <span class="badge bg-secondary px-3 py-2">申込済</span>
+                        </td>
+                    </tr>
+                    <!-- 資格取得済 -->
+                    <tr class="text-muted">
+                        <td class="ps-4"><span class="badge bg-success">オンライン</span></td>
+                        <td>
+                            <div class="fw-semibold">資格A取得オンラインセミナー 入門編</div>
+                            <div class="small mt-1">
+                                <i class="bi bi-calendar me-1"></i>配信期間：2026-05-01 〜 2026-05-31
+                                <span class="ms-3"><i class="bi bi-camera-video me-1"></i>オンライン配信</span>
+                            </div>
+                        </td>
+                        <td><span class="badge bg-light text-muted border">資格A</span></td>
+                        <td class="small text-center">制限なし</td>
+                        <td class="text-center">
+                            <span class="badge bg-success px-3 py-2">
+                                <i class="bi bi-patch-check me-1"></i>資格取得済
+                            </span>
+                        </td>
+                    </tr>
+                    <!-- 申込可能 -->
+                    <tr>
+                        <td class="ps-4"><span class="badge bg-info text-dark">セミナー</span></td>
+                        <td>
+                            <div class="fw-semibold">資格B実践セミナー ワークショップ</div>
+                            <div class="small text-muted mt-1">
+                                <i class="bi bi-calendar me-1"></i>受講期間：2026-08-05 〜 2026-08-06
+                                <span class="ms-3"><i class="bi bi-geo-alt me-1"></i>福岡会場</span>
+                            </div>
+                        </td>
+                        <td><span class="badge bg-light text-dark border">資格B</span></td>
+                        <td class="small text-muted text-center">15名</td>
+                        <td class="text-center">
+                            <button class="btn btn-primary btn-sm">
+                                <i class="bi bi-cart-plus me-1"></i>カートに追加
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- カートに進む -->
+    <div class="d-flex justify-content-end">
+        <a th:href="@{/seminar/cart}" class="btn btn-warning px-5">
+            <i class="bi bi-cart3 me-1"></i>カートへ進む（2件）
+        </a>
+    </div>
+
+</div>
+
+<th:block th:replace="~{user/layout/base :: scripts}"></th:block>
+</body>
+</html>

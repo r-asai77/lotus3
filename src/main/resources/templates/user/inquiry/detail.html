@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head th:replace="~{user/layout/base :: head('問い合わせ詳細')}"></head>
+<body>
+
+<nav th:replace="~{user/layout/base :: header}"></nav>
+
+<div class="content-wrapper container-fluid px-4 py-4">
+
+    <!-- ページタイトル -->
+    <div class="mb-3">
+        <h5 class="fw-bold mb-0"><i class="bi bi-chat-dots-fill text-warning me-2"></i>問い合わせ詳細</h5>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb small mb-0">
+                <li class="breadcrumb-item"><a th:href="@{/}" class="text-decoration-none">トップ</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/inquiry}" class="text-decoration-none">問い合わせ一覧</a></li>
+                <li class="breadcrumb-item active">詳細</li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- ヘッダー情報 -->
+    <div class="card mb-4 mx-auto" style="max-width:800px">
+        <div class="card-body py-3 px-4">
+            <div class="row g-2 align-items-center">
+                <div class="col-auto">
+                    <span class="badge bg-warning text-dark">継続中</span>
+                </div>
+                <div class="col">
+                    <span class="fw-bold">資格証明書の発行について</span>
+                </div>
+                <div class="col-auto text-muted small">
+                    カテゴリ：資格・認定について
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- スレッド -->
+    <div class="mx-auto" style="max-width:800px">
+
+        <!-- ユーザー問い合わせ -->
+        <div class="d-flex justify-content-end mb-3">
+            <div style="max-width:80%">
+                <div class="d-flex align-items-center justify-content-end gap-2 mb-1">
+                    <span class="small text-muted">2026-06-15 10:23</span>
+                    <span class="small fw-semibold text-primary">山田 太郎（あなた）</span>
+                    <a href="#" class="btn btn-outline-secondary btn-sm py-0 px-2" style="font-size:.75rem">
+                        <i class="bi bi-pencil"></i> 編集
+                    </a>
+                </div>
+                <div class="p-3 rounded-3" style="background-color:#dbeafe; border:1px solid #bfdbfe">
+                    <p class="mb-0 small">
+                        資格証明書を再発行したいのですが、申請方法を教えてください。<br>
+                        先日受験した試験に合格し、就職活動で証明書が必要になりました。
+                        どのような手続きが必要か、また発行までにどのくらいの期間がかかるか教えていただけますか？
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 管理者回答 -->
+        <div class="d-flex justify-content-start mb-3">
+            <div style="max-width:80%">
+                <div class="d-flex align-items-center gap-2 mb-1">
+                    <span class="small fw-semibold text-secondary">管理者</span>
+                    <span class="small text-muted">2026-06-16 14:05</span>
+                    <a href="#" class="btn btn-outline-secondary btn-sm py-0 px-2" style="font-size:.75rem">
+                        <i class="bi bi-pencil"></i> 編集
+                    </a>
+                </div>
+                <div class="p-3 rounded-3" style="background-color:#f3f4f6; border:1px solid #e5e7eb">
+                    <p class="mb-0 small">
+                        お問い合わせいただきありがとうございます。<br><br>
+                        資格証明書の再発行は、マイページの「所持資格」一覧から対象の資格を選択し、
+                        「証明書発行申請」ボタンよりお申し込みいただけます。<br><br>
+                        発行までの期間は申請後、約5営業日となります。
+                        電子発行（PDF）の場合は翌営業日にメールにてお送りします。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ユーザー継続問い合わせ -->
+        <div class="d-flex justify-content-end mb-3">
+            <div style="max-width:80%">
+                <div class="d-flex align-items-center justify-content-end gap-2 mb-1">
+                    <span class="small text-muted">2026-06-17 09:10</span>
+                    <span class="small fw-semibold text-primary">山田 太郎（あなた）</span>
+                    <a href="#" class="btn btn-outline-secondary btn-sm py-0 px-2" style="font-size:.75rem">
+                        <i class="bi bi-pencil"></i> 編集
+                    </a>
+                </div>
+                <div class="p-3 rounded-3" style="background-color:#dbeafe; border:1px solid #bfdbfe">
+                    <p class="mb-0 small">
+                        ご回答ありがとうございます。<br>
+                        マイページを確認しましたが、「証明書発行申請」ボタンが表示されていません。
+                        何か条件がありますか？
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 管理者最新回答 -->
+        <div class="d-flex justify-content-start mb-4">
+            <div style="max-width:80%">
+                <div class="d-flex align-items-center gap-2 mb-1">
+                    <span class="small fw-semibold text-secondary">管理者</span>
+                    <span class="small text-muted">2026-06-25 11:30</span>
+                    <a href="#" class="btn btn-outline-secondary btn-sm py-0 px-2" style="font-size:.75rem">
+                        <i class="bi bi-pencil"></i> 編集
+                    </a>
+                </div>
+                <div class="p-3 rounded-3" style="background-color:#f3f4f6; border:1px solid #e5e7eb">
+                    <p class="mb-0 small">
+                        ご確認いただきありがとうございます。<br><br>
+                        「証明書発行申請」ボタンは、資格の認定が完了してから30日以上経過した場合に表示されます。
+                        まだ30日経過していない場合は、経過後に再度ご確認ください。<br><br>
+                        ご不明な点がございましたら、引き続きお問い合わせください。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 継続問い合わせフォーム（最新回答あり・未継続時のみ表示） -->
+        <div class="card border-primary">
+            <div class="card-header bg-primary text-white py-2">
+                <small class="fw-semibold"><i class="bi bi-reply me-1"></i>継続問い合わせ</small>
+            </div>
+            <div class="card-body p-3">
+                <form th:action="@{/inquiry/3/reply}" method="post">
+                    <div class="mb-3">
+                        <textarea name="content" class="form-control form-control-sm" rows="4"
+                                  placeholder="継続して問い合わせる内容を入力してください"></textarea>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary btn-sm px-4">
+                            <i class="bi bi-send me-1"></i>送信する
+                        </button>
+                        <a th:href="@{/inquiry}" class="btn btn-outline-secondary btn-sm px-4">
+                            <i class="bi bi-arrow-left me-1"></i>一覧へ戻る
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<th:block th:replace="~{user/layout/base :: scripts}"></th:block>
+</body>
+</html>

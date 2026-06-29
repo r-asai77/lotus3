@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head th:replace="~{user/layout/base :: head('FAQ')}"></head>
+<body>
+
+<nav th:replace="~{user/layout/base :: header}"></nav>
+
+<div class="content-wrapper container-fluid px-4 py-4">
+
+    <!-- ページタイトル -->
+    <div class="mb-4">
+        <h5 class="fw-bold mb-0"><i class="bi bi-question-circle-fill text-success me-2"></i>FAQ</h5>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb small mb-0">
+                <li class="breadcrumb-item"><a th:href="@{/}" class="text-decoration-none">トップ</a></li>
+                <li class="breadcrumb-item active">FAQ</li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- レイアウト切替タブ（確認用） -->
+    <div class="alert alert-info small mb-4 d-flex align-items-center gap-2">
+        <i class="bi bi-info-circle-fill"></i>
+        以下は3つのレイアウト案の比較表示です。採用案が決まったら不要な案を削除します。
+    </div>
+
+    <!-- ========================================
+         案①：ケース選択カード + アコーディオン
+    ======================================== -->
+    <div class="mb-5">
+        <div class="d-flex align-items-center gap-2 mb-3">
+            <span class="badge bg-primary fs-6 px-3 py-2">案①</span>
+            <span class="fw-bold">ケース選択カード + アコーディオン</span>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <!-- ケース選択カード -->
+                <p class="small text-muted fw-semibold mb-2">ケースを選択してください</p>
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                    <button class="btn btn-primary btn-sm">すべて</button>
+                    <button class="btn btn-outline-secondary btn-sm">ログインできない場合</button>
+                    <button class="btn btn-outline-secondary btn-sm">セミナー申込について</button>
+                    <button class="btn btn-outline-secondary btn-sm">資格・認定について</button>
+                    <button class="btn btn-outline-secondary btn-sm">パスワードを忘れた場合</button>
+                    <button class="btn btn-outline-secondary btn-sm">その他</button>
+                </div>
+                <!-- キーワード検索 -->
+                <div class="input-group input-group-sm mb-4" style="max-width:400px">
+                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                    <input type="text" class="form-control" placeholder="キーワードで検索">
+                    <button class="btn btn-outline-secondary">検索</button>
+                </div>
+                <!-- アコーディオン -->
+                <div class="accordion" id="faqAccordion1">
+                    <div class="accordion-item border-0 border-bottom">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed ps-0 fw-semibold" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#faq1-1">
+                                <i class="bi bi-question-circle text-success me-2"></i>
+                                ログインIDを忘れてしまいました
+                            </button>
+                        </h2>
+                        <div id="faq1-1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
+                            <div class="accordion-body text-muted ps-4">
+                                ログインIDを忘れた場合は、登録いただいたメールアドレスにてお問い合わせください。本人確認後、ログインIDをご案内いたします。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item border-0 border-bottom">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed ps-0 fw-semibold" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#faq1-2">
+                                <i class="bi bi-question-circle text-success me-2"></i>
+                                セミナーを複数同時に申し込めますか？
+                            </button>
+                        </h2>
+                        <div id="faq1-2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
+                            <div class="accordion-body text-muted ps-4">
+                                はい、複数のセミナーを同時にカートへ追加して申し込むことができます。申込画面のカート機能をご利用ください。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item border-0 border-bottom">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed ps-0 fw-semibold" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#faq1-3">
+                                <i class="bi bi-question-circle text-success me-2"></i>
+                                資格の有効期限はどのように確認できますか？
+                            </button>
+                        </h2>
+                        <div id="faq1-3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
+                            <div class="accordion-body text-muted ps-4">
+                                マイページの「所持資格」一覧から有効期限をご確認いただけます。有効期限が近づくとインフォメーションでもご案内します。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item border-0">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed ps-0 fw-semibold" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#faq1-4">
+                                <i class="bi bi-question-circle text-success me-2"></i>
+                                オンラインセミナーはどのように受講しますか？
+                            </button>
+                        </h2>
+                        <div id="faq1-4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
+                            <div class="accordion-body text-muted ps-4">
+                                申込完了後、配信URLをメールにてお送りします。配信期間内であればいつでも視聴いただけます。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+         案②：左サイドバー + 右コンテンツ
+    ======================================== -->
+    <div class="mb-5">
+        <div class="d-flex align-items-center gap-2 mb-3">
+            <span class="badge bg-success fs-6 px-3 py-2">案②</span>
+            <span class="fw-bold">左サイドバー + 右コンテンツ</span>
+        </div>
+        <div class="card">
+            <div class="card-body p-0">
+                <div class="row g-0">
+                    <!-- サイドバー -->
+                    <div class="col-md-3 border-end bg-light" style="min-height:400px">
+                        <div class="p-3">
+                            <p class="small fw-bold text-muted mb-2">ケース</p>
+                            <ul class="list-unstyled mb-4">
+                                <li class="mb-1">
+                                    <a href="#" class="text-decoration-none d-flex align-items-center gap-1 py-1 px-2 rounded bg-primary text-white small">
+                                        <i class="bi bi-chevron-right"></i>すべて
+                                    </a>
+                                </li>
+                                <li class="mb-1">
+                                    <a href="#" class="text-decoration-none d-flex align-items-center gap-1 py-1 px-2 rounded text-dark small">
+                                        <i class="bi bi-chevron-right"></i>ログインできない場合
+                                    </a>
+                                </li>
+                                <li class="mb-1">
+                                    <a href="#" class="text-decoration-none d-flex align-items-center gap-1 py-1 px-2 rounded text-dark small">
+                                        <i class="bi bi-chevron-right"></i>セミナー申込について
+                                    </a>
+                                </li>
+                                <li class="mb-1">
+                                    <a href="#" class="text-decoration-none d-flex align-items-center gap-1 py-1 px-2 rounded text-dark small">
+                                        <i class="bi bi-chevron-right"></i>資格・認定について
+                                    </a>
+                                </li>
+                                <li class="mb-1">
+                                    <a href="#" class="text-decoration-none d-flex align-items-center gap-1 py-1 px-2 rounded text-dark small">
+                                        <i class="bi bi-chevron-right"></i>パスワードを忘れた場合
+                                    </a>
+                                </li>
+                            </ul>
+                            <p class="small fw-bold text-muted mb-2">カテゴリ</p>
+                            <div class="form-check mb-1">
+                                <input class="form-check-input" type="checkbox" id="cat1" checked>
+                                <label class="form-check-label small" for="cat1">操作方法</label>
+                            </div>
+                            <div class="form-check mb-1">
+                                <input class="form-check-input" type="checkbox" id="cat2">
+                                <label class="form-check-label small" for="cat2">セミナー</label>
+                            </div>
+                            <div class="form-check mb-1">
+                                <input class="form-check-input" type="checkbox" id="cat3">
+                                <label class="form-check-label small" for="cat3">資格・認定</label>
+                            </div>
+                            <div class="form-check mb-1">
+                                <input class="form-check-input" type="checkbox" id="cat4">
+                                <label class="form-check-label small" for="cat4">その他</label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- メインコンテンツ -->
+                    <div class="col-md-9 p-4">
+                        <div class="input-group input-group-sm mb-4" style="max-width:400px">
+                            <span class="input-group-text"><i class="bi bi-search"></i></span>
+                            <input type="text" class="form-control" placeholder="キーワードで検索">
+                            <button class="btn btn-outline-secondary">検索</button>
+                        </div>
+                        <div class="mb-4 pb-3 border-bottom">
+                            <p class="fw-semibold mb-1">
+                                <i class="bi bi-question-circle text-success me-1"></i>
+                                ログインIDを忘れてしまいました
+                            </p>
+                            <p class="text-muted small mb-0">
+                                ログインIDを忘れた場合は、登録いただいたメールアドレスにてお問い合わせください。本人確認後、ログインIDをご案内いたします。
+                            </p>
+                        </div>
+                        <div class="mb-4 pb-3 border-bottom">
+                            <p class="fw-semibold mb-1">
+                                <i class="bi bi-question-circle text-success me-1"></i>
+                                セミナーを複数同時に申し込めますか？
+                            </p>
+                            <p class="text-muted small mb-0">
+                                はい、複数のセミナーを同時にカートへ追加して申し込むことができます。
+                            </p>
+                        </div>
+                        <div class="mb-4 pb-3 border-bottom">
+                            <p class="fw-semibold mb-1">
+                                <i class="bi bi-question-circle text-success me-1"></i>
+                                資格の有効期限はどのように確認できますか？
+                            </p>
+                            <p class="text-muted small mb-0">
+                                マイページの「所持資格」一覧から有効期限をご確認いただけます。
+                            </p>
+                        </div>
+                        <div class="mb-0">
+                            <p class="fw-semibold mb-1">
+                                <i class="bi bi-question-circle text-success me-1"></i>
+                                オンラインセミナーはどのように受講しますか？
+                            </p>
+                            <p class="text-muted small mb-0">
+                                申込完了後、配信URLをメールにてお送りします。配信期間内であればいつでも視聴いただけます。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+         案③：ケースタブ + カード一覧
+    ======================================== -->
+    <div class="mb-5">
+        <div class="d-flex align-items-center gap-2 mb-3">
+            <span class="badge bg-warning text-dark fs-6 px-3 py-2">案③</span>
+            <span class="fw-bold">ケースタブ + カード一覧</span>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <!-- タブ -->
+                <ul class="nav nav-tabs mb-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">すべて</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">ログインできない場合</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">セミナー申込について</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">資格・認定について</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">その他</a>
+                    </li>
+                </ul>
+                <!-- キーワード検索 -->
+                <div class="input-group input-group-sm mb-4" style="max-width:400px">
+                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                    <input type="text" class="form-control" placeholder="キーワードで検索">
+                    <button class="btn btn-outline-secondary">検索</button>
+                </div>
+                <!-- カード一覧 -->
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="card h-100 border">
+                            <div class="card-body">
+                                <p class="fw-semibold mb-2">
+                                    <i class="bi bi-question-circle text-success me-1"></i>
+                                    ログインIDを忘れてしまいました
+                                </p>
+                                <p class="text-muted small mb-0">
+                                    ログインIDを忘れた場合は、登録いただいたメールアドレスにてお問い合わせください。本人確認後、ログインIDをご案内いたします。
+                                </p>
+                            </div>
+                            <div class="card-footer bg-white border-0">
+                                <span class="badge bg-light text-muted border">操作方法</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100 border">
+                            <div class="card-body">
+                                <p class="fw-semibold mb-2">
+                                    <i class="bi bi-question-circle text-success me-1"></i>
+                                    セミナーを複数同時に申し込めますか？
+                                </p>
+                                <p class="text-muted small mb-0">
+                                    はい、複数のセミナーを同時にカートへ追加して申し込むことができます。申込画面のカート機能をご利用ください。
+                                </p>
+                            </div>
+                            <div class="card-footer bg-white border-0">
+                                <span class="badge bg-light text-muted border">セミナー</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100 border">
+                            <div class="card-body">
+                                <p class="fw-semibold mb-2">
+                                    <i class="bi bi-question-circle text-success me-1"></i>
+                                    資格の有効期限はどのように確認できますか？
+                                </p>
+                                <p class="text-muted small mb-0">
+                                    マイページの「所持資格」一覧から有効期限をご確認いただけます。有効期限が近づくとインフォメーションでもご案内します。
+                                </p>
+                            </div>
+                            <div class="card-footer bg-white border-0">
+                                <span class="badge bg-light text-muted border">資格・認定</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100 border">
+                            <div class="card-body">
+                                <p class="fw-semibold mb-2">
+                                    <i class="bi bi-question-circle text-success me-1"></i>
+                                    オンラインセミナーはどのように受講しますか？
+                                </p>
+                                <p class="text-muted small mb-0">
+                                    申込完了後、配信URLをメールにてお送りします。配信期間内であればいつでも視聴いただけます。
+                                </p>
+                            </div>
+                            <div class="card-footer bg-white border-0">
+                                <span class="badge bg-light text-muted border">セミナー</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<th:block th:replace="~{user/layout/base :: scripts}"></th:block>
+</body>
+</html>

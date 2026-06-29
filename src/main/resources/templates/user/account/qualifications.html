@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ja">
+<head th:replace="~{user/layout/base :: head('所持資格')}"></head>
+<body>
+
+<nav th:replace="~{user/layout/base :: header}"></nav>
+
+<div class="content-wrapper container-fluid px-4 py-4">
+
+    <!-- ページタイトル -->
+    <div class="mb-4">
+        <h5 class="fw-bold mb-0"><i class="bi bi-patch-check-fill text-success me-2"></i>アカウント情報</h5>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb small mb-0">
+                <li class="breadcrumb-item"><a th:href="@{/}" class="text-decoration-none">トップ</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/account}" class="text-decoration-none">アカウント情報</a></li>
+                <li class="breadcrumb-item active">所持資格</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- サイドバー -->
+        <div class="col-lg-3">
+            <div th:replace="~{user/layout/base :: accountSidebar('qualifications')}"></div>
+        </div>
+
+        <!-- メインコンテンツ -->
+        <div class="col-lg-9">
+
+            <!-- 有効な資格 -->
+            <div class="card mb-4">
+                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                    <span><i class="bi bi-patch-check-fill me-2 text-success"></i>所持資格</span>
+                    <span class="badge bg-success rounded-pill">3件</span>
+                </div>
+                <div class="list-group list-group-flush">
+
+                    <!-- 資格1：有効 -->
+                    <div class="list-group-item px-4 py-3">
+                        <div class="d-flex align-items-start justify-content-between gap-3">
+                            <div class="flex-grow-1">
+                                <div class="d-flex align-items-center gap-2 mb-1">
+                                    <span class="badge bg-success">有効</span>
+                                    <span class="fw-semibold">資格A 上級</span>
+                                </div>
+                                <div class="row g-0 small text-muted">
+                                    <div class="col-sm-6">
+                                        <i class="bi bi-calendar-check me-1"></i>取得日：2024-03-15
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <i class="bi bi-calendar-x me-1"></i>有効期限：2027-03-14
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-end text-nowrap">
+                                <small class="text-muted d-block">残り</small>
+                                <span class="text-success fw-semibold small">258日</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 資格2：有効 -->
+                    <div class="list-group-item px-4 py-3">
+                        <div class="d-flex align-items-start justify-content-between gap-3">
+                            <div class="flex-grow-1">
+                                <div class="d-flex align-items-center gap-2 mb-1">
+                                    <span class="badge bg-success">有効</span>
+                                    <span class="fw-semibold">資格B 基礎</span>
+                                </div>
+                                <div class="row g-0 small text-muted">
+                                    <div class="col-sm-6">
+                                        <i class="bi bi-calendar-check me-1"></i>取得日：2025-06-01
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <i class="bi bi-calendar-x me-1"></i>有効期限：2028-05-31
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-end text-nowrap">
+                                <small class="text-muted d-block">残り</small>
+                                <span class="text-success fw-semibold small">702日</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 資格3：期限まもなく -->
+                    <div class="list-group-item px-4 py-3 bg-warning bg-opacity-10">
+                        <div class="d-flex align-items-start justify-content-between gap-3">
+                            <div class="flex-grow-1">
+                                <div class="d-flex align-items-center gap-2 mb-1">
+                                    <span class="badge bg-warning text-dark">期限注意</span>
+                                    <span class="fw-semibold">資格C 専門</span>
+                                </div>
+                                <div class="row g-0 small text-muted">
+                                    <div class="col-sm-6">
+                                        <i class="bi bi-calendar-check me-1"></i>取得日：2023-08-20
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <i class="bi bi-calendar-x me-1"></i>有効期限：2026-08-19
+                                    </div>
+                                </div>
+                                <div class="small text-warning fw-semibold mt-1">
+                                    <i class="bi bi-exclamation-triangle me-1"></i>期限まで51日です。更新セミナーの受講をご検討ください。
+                                </div>
+                            </div>
+                            <div class="text-end text-nowrap">
+                                <small class="text-muted d-block">残り</small>
+                                <span class="text-warning fw-semibold small">51日</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 期限切れ資格 -->
+            <div class="card mb-4">
+                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                    <span class="text-muted"><i class="bi bi-patch-exclamation me-2"></i>期限切れ</span>
+                    <span class="badge bg-secondary rounded-pill">1件</span>
+                </div>
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item px-4 py-3 text-muted">
+                        <div class="d-flex align-items-start gap-3">
+                            <div>
+                                <div class="d-flex align-items-center gap-2 mb-1">
+                                    <span class="badge bg-secondary">期限切れ</span>
+                                    <span class="fw-semibold text-muted">資格D 入門</span>
+                                </div>
+                                <div class="row g-0 small">
+                                    <div class="col-sm-6">
+                                        <i class="bi bi-calendar-check me-1"></i>取得日：2021-04-10
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <i class="bi bi-calendar-x me-1"></i>有効期限：2024-04-09
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- お知らせ -->
+            <div class="alert alert-light border d-flex gap-2 small" role="alert">
+                <i class="bi bi-info-circle text-secondary flex-shrink-0 mt-1"></i>
+                <div>
+                    資格情報の変更・追加が必要な場合は
+                    <a th:href="@{/inquiry/new}" class="alert-link">お問い合わせ</a>
+                    よりご連絡ください。
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="~{user/layout/base :: scripts}"></th:block>
+</body>
+</html>

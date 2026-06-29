@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head th:replace="~{user/layout/base :: head('問い合わせ一覧')}"></head>
+<body>
+
+<nav th:replace="~{user/layout/base :: header}"></nav>
+
+<div class="content-wrapper container-fluid px-4 py-4">
+
+    <!-- ページタイトル -->
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        <div>
+            <h5 class="fw-bold mb-0"><i class="bi bi-chat-dots-fill text-warning me-2"></i>問い合わせ一覧</h5>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb small mb-0">
+                    <li class="breadcrumb-item"><a th:href="@{/}" class="text-decoration-none">トップ</a></li>
+                    <li class="breadcrumb-item active">問い合わせ一覧</li>
+                </ol>
+            </nav>
+        </div>
+        <a th:href="@{/inquiry/new}" class="btn btn-primary btn-sm">
+            <i class="bi bi-plus-circle me-1"></i>新規問い合わせ
+        </a>
+    </div>
+
+    <!-- 検索フォーム -->
+    <div class="card mb-3">
+        <div class="card-header bg-white py-2 d-flex align-items-center justify-content-between"
+             style="cursor:pointer" data-bs-toggle="collapse" data-bs-target="#searchForm">
+            <span class="fw-semibold small"><i class="bi bi-search me-1"></i>検索条件</span>
+            <i class="bi bi-chevron-down"></i>
+        </div>
+        <div class="collapse show" id="searchForm">
+            <div class="card-body">
+                <form th:action="@{/inquiry}" method="get">
+                    <div class="row g-3">
+                        <div class="col-md-5">
+                            <label class="form-label small fw-semibold">キーワード</label>
+                            <input type="text" name="keyword" class="form-control form-control-sm"
+                                   placeholder="問い合わせ内容で検索">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label small fw-semibold">ステータス</label>
+                            <select name="status" class="form-select form-select-sm">
+                                <option value="">すべて</option>
+                                <option value="waiting">未回答</option>
+                                <option value="answered">回答済</option>
+                                <option value="continuing">継続問い合わせ中</option>
+                                <option value="closed">完了</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label small fw-semibold">登録日（開始）</label>
+                            <input type="date" name="dateFrom" class="form-control form-control-sm">
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label small fw-semibold">登録日（終了）</label>
+                            <input type="date" name="dateTo" class="form-control form-control-sm">
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2 mt-3">
+                        <button type="submit" class="btn btn-primary btn-sm px-4">
+                            <i class="bi bi-search me-1"></i>検索
+                        </button>
+                        <a th:href="@{/inquiry}" class="btn btn-outline-secondary btn-sm px-4">
+                            <i class="bi bi-x-circle me-1"></i>クリア
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 件数・表示件数 -->
+    <div class="d-flex align-items-center justify-content-between mb-2">
+        <span class="small text-muted">
+            1ページ中 1ページを表示（合計：<strong>5</strong>件）
+        </span>
+        <div class="d-flex align-items-center gap-2">
+            <label class="small text-muted mb-0">表示件数</label>
+            <select class="form-select form-select-sm" style="width:auto">
+                <option value="20">20件</option>
+                <option value="40" selected>40件</option>
+                <option value="60">60件</option>
+                <option value="80">80件</option>
+                <option value="100">100件</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- 一覧 -->
+    <div class="card mb-3">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4" style="width:100px">ステータス</th>
+                        <th>問い合わせ内容</th>
+                        <th style="width:130px">登録日</th>
+                        <th style="width:130px">最終更新日</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="cursor:pointer" onclick="location.href='/inquiry/1'">
+                        <td class="ps-4"><span class="badge bg-danger">未回答</span></td>
+                        <td>
+                            <p class="fw-semibold mb-0 text-dark">セミナー申込のキャンセルについて</p>
+                            <p class="text-muted small mb-0">申し込んだセミナーをキャンセルしたいのですが、どのような手続きが必要でしょうか。</p>
+                        </td>
+                        <td class="small text-muted">2026-06-28</td>
+                        <td class="small text-muted">2026-06-28</td>
+                    </tr>
+                    <tr style="cursor:pointer" onclick="location.href='/inquiry/2'">
+                        <td class="ps-4"><span class="badge bg-success">回答済</span></td>
+                        <td>
+                            <p class="fw-semibold mb-0 text-dark">ログインができなくなりました</p>
+                            <p class="text-muted small mb-0">昨日まで使えていたのに、今日からログインできなくなりました。</p>
+                        </td>
+                        <td class="small text-muted">2026-06-20</td>
+                        <td class="small text-muted">2026-06-21</td>
+                    </tr>
+                    <tr style="cursor:pointer" onclick="location.href='/inquiry/3'">
+                        <td class="ps-4"><span class="badge bg-warning text-dark">継続中</span></td>
+                        <td>
+                            <p class="fw-semibold mb-0 text-dark">資格証明書の発行について</p>
+                            <p class="text-muted small mb-0">資格証明書を再発行したいのですが、申請方法を教えてください。</p>
+                        </td>
+                        <td class="small text-muted">2026-06-15</td>
+                        <td class="small text-muted">2026-06-25</td>
+                    </tr>
+                    <tr style="cursor:pointer" onclick="location.href='/inquiry/4'">
+                        <td class="ps-4"><span class="badge bg-secondary">完了</span></td>
+                        <td>
+                            <p class="fw-semibold mb-0 text-dark">メールアドレスの変更方法について</p>
+                            <p class="text-muted small mb-0">登録しているメールアドレスを変更したいのですが。</p>
+                        </td>
+                        <td class="small text-muted">2026-06-01</td>
+                        <td class="small text-muted">2026-06-02</td>
+                    </tr>
+                    <tr style="cursor:pointer" onclick="location.href='/inquiry/5'">
+                        <td class="ps-4"><span class="badge bg-secondary">完了</span></td>
+                        <td>
+                            <p class="fw-semibold mb-0 text-dark">オンラインセミナーの視聴環境について</p>
+                            <p class="text-muted small mb-0">オンラインセミナーを視聴するための推奨環境を教えてください。</p>
+                        </td>
+                        <td class="small text-muted">2026-05-20</td>
+                        <td class="small text-muted">2026-05-21</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ページネーション -->
+    <div class="d-flex justify-content-center">
+        <nav>
+            <ul class="pagination pagination-sm mb-0">
+                <li class="page-item disabled"><span class="page-link">最初へ</span></li>
+                <li class="page-item disabled"><span class="page-link"><i class="bi bi-chevron-left"></i></span></li>
+                <li class="page-item active"><span class="page-link">1</span></li>
+                <li class="page-item disabled"><span class="page-link"><i class="bi bi-chevron-right"></i></span></li>
+                <li class="page-item disabled"><span class="page-link">最後へ</span></li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+
+<th:block th:replace="~{user/layout/base :: scripts}"></th:block>
+</body>
+</html>

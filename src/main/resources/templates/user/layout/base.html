@@ -54,14 +54,9 @@
             </ul>
             <ul class="navbar-nav ms-auto align-items-center gap-2">
                 <li class="nav-item">
-                    <span class="navbar-text text-white-50 small">
+                    <a class="nav-link text-white-50 small py-1 px-2 rounded" th:href="@{/account}">
                         <i class="bi bi-person-circle me-1"></i>
                         <span sec:authentication="name">ユーザー名</span> さん
-                    </span>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link py-1 px-2 rounded" th:href="@{/profile}">
-                        <i class="bi bi-gear me-1"></i>ユーザー情報変更
                     </a>
                 </li>
                 <li class="nav-item">
@@ -75,6 +70,34 @@
         </div>
     </div>
 </nav>
+
+<!-- ===== ACCOUNT SIDEBAR fragment ===== -->
+<div th:fragment="accountSidebar(active)">
+    <div class="card mb-3">
+        <div class="card-body px-3 py-3 text-center">
+            <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-2"
+                 style="width:56px;height:56px;font-size:1.5rem">
+                <i class="bi bi-person-fill"></i>
+            </div>
+            <div class="fw-semibold" sec:authentication="name">ユーザー名</div>
+            <div class="text-muted small">さん</div>
+        </div>
+    </div>
+    <div class="list-group shadow-sm">
+        <a th:href="@{/account}"
+           th:class="${active == 'profile'} ? 'list-group-item list-group-item-action active d-flex align-items-center gap-2 py-3' : 'list-group-item list-group-item-action d-flex align-items-center gap-2 py-3'">
+            <i class="bi bi-person-fill"></i>ユーザー情報
+        </a>
+        <a th:href="@{/account/billing}"
+           th:class="${active == 'billing'} ? 'list-group-item list-group-item-action active d-flex align-items-center gap-2 py-3' : 'list-group-item list-group-item-action d-flex align-items-center gap-2 py-3'">
+            <i class="bi bi-building"></i>請求先情報
+        </a>
+        <a th:href="@{/account/qualifications}"
+           th:class="${active == 'qualifications'} ? 'list-group-item list-group-item-action active d-flex align-items-center gap-2 py-3' : 'list-group-item list-group-item-action d-flex align-items-center gap-2 py-3'">
+            <i class="bi bi-patch-check-fill"></i>所持資格
+        </a>
+    </div>
+</div>
 
 <!-- ===== SCRIPTS fragment ===== -->
 <div th:fragment="scripts">

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ja">
+<head th:replace="~{user/layout/base :: head('請求先情報')}"></head>
+<body>
+
+<nav th:replace="~{user/layout/base :: header}"></nav>
+
+<div class="content-wrapper container-fluid px-4 py-4">
+
+    <!-- ページタイトル -->
+    <div class="mb-4">
+        <h5 class="fw-bold mb-0"><i class="bi bi-building text-primary me-2"></i>アカウント情報</h5>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb small mb-0">
+                <li class="breadcrumb-item"><a th:href="@{/}" class="text-decoration-none">トップ</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/account}" class="text-decoration-none">アカウント情報</a></li>
+                <li class="breadcrumb-item active">請求先情報</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- サイドバー -->
+        <div class="col-lg-3">
+            <div th:replace="~{user/layout/base :: accountSidebar('billing')}"></div>
+        </div>
+
+        <!-- メインコンテンツ -->
+        <div class="col-lg-9">
+            <div class="card">
+                <div class="card-header bg-white py-3">
+                    <i class="bi bi-building me-2 text-primary"></i>請求先情報
+                </div>
+                <div class="card-body p-4">
+                    <form th:action="@{/account/billing}" method="post">
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">
+                                請求先名 <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" name="billingName" class="form-control"
+                                   placeholder="会社名または個人名" value="株式会社サンプル">
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label small fw-semibold">郵便番号</label>
+                                <div class="input-group">
+                                    <span class="input-group-text small">〒</span>
+                                    <input type="text" name="postalCode" class="form-control"
+                                           placeholder="1000001" value="1000001" maxlength="7">
+                                </div>
+                                <div class="form-text">ハイフンなし7桁</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">住所</label>
+                            <input type="text" name="address" class="form-control"
+                                   placeholder="都道府県・市区町村・番地"
+                                   value="東京都千代田区千代田1-1">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">建物名・部屋番号</label>
+                            <input type="text" name="addressLine2" class="form-control"
+                                   placeholder="例：〇〇ビル 3F（任意）">
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label small fw-semibold">担当者名</label>
+                            <input type="text" name="contactName" class="form-control"
+                                   placeholder="担当者氏名" value="山田 太郎">
+                        </div>
+
+                        <div class="d-flex align-items-center gap-3">
+                            <button type="submit" class="btn btn-primary px-4">
+                                <i class="bi bi-check-circle me-1"></i>請求先情報を更新する
+                            </button>
+                            <a th:href="@{/account}" class="btn btn-outline-secondary">
+                                キャンセル
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- セミナー申込での利用について -->
+            <div class="alert alert-info d-flex gap-2 mt-4 small" role="alert">
+                <i class="bi bi-info-circle-fill flex-shrink-0 mt-1"></i>
+                <div>
+                    ここで登録した請求先情報はセミナー申込時に自動入力されます。<br>
+                    申込ごとに変更することも可能です。
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="~{user/layout/base :: scripts}"></th:block>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head th:replace="~{user/layout/base :: head('問い合わせ登録')}"></head>
+<body>
+
+<nav th:replace="~{user/layout/base :: header}"></nav>
+
+<div class="content-wrapper container-fluid px-4 py-4">
+
+    <!-- ページタイトル -->
+    <div class="mb-3">
+        <h5 class="fw-bold mb-0"><i class="bi bi-chat-dots-fill text-warning me-2"></i>新規問い合わせ</h5>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb small mb-0">
+                <li class="breadcrumb-item"><a th:href="@{/}" class="text-decoration-none">トップ</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/inquiry}" class="text-decoration-none">問い合わせ一覧</a></li>
+                <li class="breadcrumb-item active">新規問い合わせ</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="card mx-auto" style="max-width:700px">
+        <div class="card-body p-4">
+            <form th:action="@{/inquiry}" method="post">
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">
+                        カテゴリ <span class="text-danger">*</span>
+                    </label>
+                    <select name="category" class="form-select">
+                        <option value="">選択してください</option>
+                        <option value="1">操作方法について</option>
+                        <option value="2">セミナー申込について</option>
+                        <option value="3">資格・認定について</option>
+                        <option value="4">アカウントについて</option>
+                        <option value="5">その他</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">
+                        件名 <span class="text-danger">*</span>
+                    </label>
+                    <input type="text" name="subject" class="form-control"
+                           placeholder="問い合わせの件名を入力してください">
+                </div>
+                <div class="mb-4">
+                    <label class="form-label fw-semibold">
+                        問い合わせ内容 <span class="text-danger">*</span>
+                    </label>
+                    <textarea name="content" class="form-control" rows="8"
+                              placeholder="問い合わせ内容を詳しく入力してください"></textarea>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary px-4">
+                        <i class="bi bi-send me-1"></i>送信する
+                    </button>
+                    <a th:href="@{/inquiry}" class="btn btn-outline-secondary px-4">
+                        <i class="bi bi-arrow-left me-1"></i>キャンセル
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<th:block th:replace="~{user/layout/base :: scripts}"></th:block>
+</body>
+</html>

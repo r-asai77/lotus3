@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head th:replace="~{user/layout/base :: head('申込完了')}"></head>
+<body>
+
+<nav th:replace="~{user/layout/base :: header}"></nav>
+
+<div class="content-wrapper container-fluid px-4 py-4">
+
+    <!-- ページタイトル -->
+    <div class="mb-3">
+        <h5 class="fw-bold mb-0"><i class="bi bi-check-circle-fill text-success me-2"></i>申込完了</h5>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb small mb-0">
+                <li class="breadcrumb-item"><a th:href="@{/}" class="text-decoration-none">トップ</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/seminar}" class="text-decoration-none">セミナー申込</a></li>
+                <li class="breadcrumb-item active">申込完了</li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- ステップ表示 -->
+    <div class="d-flex align-items-center gap-0 mb-4 mx-auto" style="max-width:600px">
+        <div class="text-center" style="flex:1">
+            <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center fw-bold" style="width:32px;height:32px;font-size:.85rem">1</div>
+            <div class="small mt-1 text-muted">セミナー選択</div>
+        </div>
+        <div class="flex-grow-1 border-top border-2 border-primary mb-4"></div>
+        <div class="text-center" style="flex:1">
+            <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center fw-bold" style="width:32px;height:32px;font-size:.85rem">2</div>
+            <div class="small mt-1 text-muted">申込情報入力</div>
+        </div>
+        <div class="flex-grow-1 border-top border-2 border-primary mb-4"></div>
+        <div class="text-center" style="flex:1">
+            <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center fw-bold" style="width:32px;height:32px;font-size:.85rem">3</div>
+            <div class="small mt-1 text-muted">申込確認</div>
+        </div>
+        <div class="flex-grow-1 border-top border-2 border-primary mb-4"></div>
+        <div class="text-center" style="flex:1">
+            <div class="rounded-circle bg-success text-white d-inline-flex align-items-center justify-content-center" style="width:32px;height:32px">
+                <i class="bi bi-check-lg"></i>
+            </div>
+            <div class="small mt-1 fw-semibold text-success">申込完了</div>
+        </div>
+    </div>
+
+    <div class="mx-auto" style="max-width:600px">
+        <div class="card text-center p-5 mb-4">
+            <div class="mb-3">
+                <i class="bi bi-check-circle-fill text-success" style="font-size:3rem"></i>
+            </div>
+            <h5 class="fw-bold mb-2">申込が完了しました</h5>
+            <p class="text-muted mb-3">
+                申込内容をご登録のメールアドレスにお送りしました。<br>
+                受講に関する詳細は別途ご案内いたします。
+            </p>
+            <div class="bg-light rounded p-3 d-inline-block mx-auto">
+                <span class="text-muted small">申込番号</span>
+                <div class="fw-bold fs-5 text-primary">REQ-2026-00042</div>
+            </div>
+        </div>
+
+        <!-- 申込内容サマリ -->
+        <div class="card mb-4">
+            <div class="card-header bg-white fw-semibold py-3">
+                <i class="bi bi-receipt me-2 text-secondary"></i>申込内容
+            </div>
+            <div class="list-group list-group-flush">
+                <div class="list-group-item px-4 py-3">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="badge bg-info text-dark">セミナー</span>
+                        <span class="small fw-semibold">資格A取得セミナー 応用コース</span>
+                    </div>
+                    <div class="small text-muted ms-1 mt-1">2026-07-17 / 大阪会場</div>
+                </div>
+                <div class="list-group-item px-4 py-3">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="badge bg-success">オンライン</span>
+                        <span class="small fw-semibold">資格B入門オンラインセミナー</span>
+                    </div>
+                    <div class="small text-muted ms-1 mt-1">2026-07-01〜07-31 / オンライン配信</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex gap-3">
+            <a th:href="@{/seminar}" class="btn btn-outline-primary px-4">
+                <i class="bi bi-calendar-check me-1"></i>他のセミナーを見る
+            </a>
+            <a th:href="@{/}" class="btn btn-outline-secondary px-4">
+                <i class="bi bi-house me-1"></i>トップへ戻る
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<th:block th:replace="~{user/layout/base :: scripts}"></th:block>
+</body>
+</html>

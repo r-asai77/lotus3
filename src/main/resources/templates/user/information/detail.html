@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head th:replace="~{user/layout/base :: head('インフォメーション詳細')}"></head>
+<body>
+
+<nav th:replace="~{user/layout/base :: header}"></nav>
+
+<div class="content-wrapper container-fluid px-4 py-4">
+
+    <!-- ページタイトル -->
+    <div class="mb-3">
+        <h5 class="fw-bold mb-0"><i class="bi bi-bell-fill text-primary me-2"></i>インフォメーション詳細</h5>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb small mb-0">
+                <li class="breadcrumb-item"><a th:href="@{/}" class="text-decoration-none">トップ</a></li>
+                <li class="breadcrumb-item"><a th:href="@{/information}" class="text-decoration-none">インフォメーション一覧</a></li>
+                <li class="breadcrumb-item active">詳細</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="card mx-auto" style="max-width:800px">
+        <div class="card-body p-4">
+            <div class="d-flex align-items-center gap-2 mb-3">
+                <span class="badge bg-danger">重要</span>
+                <span class="text-muted small">2026-06-29</span>
+            </div>
+            <h5 class="fw-bold mb-3">システムメンテナンスのお知らせ</h5>
+            <hr>
+            <div class="text-body lh-lg">
+                <p>平素よりご利用いただきありがとうございます。</p>
+                <p>
+                    下記の日程にてシステムメンテナンスを実施いたします。<br>
+                    メンテナンス中はサービスをご利用いただけません。ご不便をおかけしますが、ご了承ください。
+                </p>
+                <ul>
+                    <li>日時：2026年7月5日（日）午前2:00 〜 午前6:00</li>
+                    <li>対象：全サービス</li>
+                </ul>
+                <p>ご不明な点がございましたら、問い合わせフォームよりお問い合わせください。</p>
+            </div>
+        </div>
+        <div class="card-footer bg-white d-flex justify-content-between align-items-center">
+            <span class="small text-muted">表示対象資格：資格A・資格B</span>
+            <a th:href="@{/information}" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-arrow-left me-1"></i>一覧へ戻る
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<th:block th:replace="~{user/layout/base :: scripts}"></th:block>
+</body>
+</html>
