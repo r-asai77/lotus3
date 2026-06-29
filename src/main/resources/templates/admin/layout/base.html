@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ja">
+
+<!-- ===== HEAD fragment ===== -->
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title} + ' - Lotus Admin'">Lotus Admin</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        body { background-color: #f5f7fb; }
+        .admin-sidebar {
+            width: 240px;
+            min-height: 100vh;
+            background: #1a2332;
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        .admin-sidebar .brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: .05em;
+            color: #fff;
+            padding: 1.25rem 1rem;
+            border-bottom: 1px solid rgba(255,255,255,.1);
+        }
+        .admin-sidebar .nav-link {
+            color: rgba(255,255,255,.6);
+            padding: .6rem 1rem;
+            border-radius: 6px;
+            margin: 1px 8px;
+            font-size: .875rem;
+            transition: all .15s;
+        }
+        .admin-sidebar .nav-link:hover {
+            color: #fff;
+            background: rgba(255,255,255,.08);
+        }
+        .admin-sidebar .nav-link.active {
+            color: #fff;
+            background: rgba(255,255,255,.15);
+        }
+        .nav-section-btn {
+            background: none;
+            border: none;
+            color: rgba(255,255,255,.35);
+            font-size: .7rem;
+            font-weight: 600;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            padding: .9rem 1rem .25rem;
+            width: 100%;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: color .15s;
+        }
+        .nav-section-btn:hover { color: rgba(255,255,255,.6); }
+        .nav-section-btn .chevron {
+            font-size: .75rem;
+            transition: transform .2s;
+        }
+        .nav-section-btn.collapsed .chevron { transform: rotate(-90deg); }
+        .admin-topbar {
+            background: #fff;
+            border-bottom: 1px solid #e5e7eb;
+            height: 52px;
+        }
+        .admin-main { min-height: 100vh; }
+        .card { border: none; border-radius: 10px; box-shadow: 0 1px 8px rgba(0,0,0,.07); }
+        .card-header { border-radius: 10px 10px 0 0 !important; font-weight: 600; }
+    </style>
+</head>
+
+<!-- ===== SIDEBAR fragment ===== -->
+<body>
+<nav th:fragment="sidebar(active)" class="admin-sidebar d-flex flex-column">
+    <div class="brand">
+        <i class="bi bi-flower1 me-2"></i>Lotus Admin
+    </div>
+    <ul class="nav flex-column flex-grow-1 py-2">
+        <li class="nav-item">
+            <a th:href="@{/admin/}"
+               th:class="${active == 'dashboard'} ? 'nav-link active d-flex align-items-center gap-2' : 'nav-link d-flex align-items-center gap-2'">
+                <i class="bi bi-speedometer2"></i>ダッシュボード
+            </a>
+        </li>
+
+        <!-- 申込管理 -->
+        <li>
+            <button type="button"
+                    th:class="${active == 'applications'} ? 'nav-section-btn' : 'nav-section-btn collapsed'"
+                    data-bs-toggle="collapse" data-bs-target="#sec-applications">
+                申込管理 <i class="bi bi-chevron-down chevron"></i>
+            </button>
+            <div id="sec-applications"
+                 th:class="${active == 'applications'} ? 'collapse show' : 'collapse'">
+                <a th:href="@{/admin/applications}"
+                   th:class="${active == 'applications'} ? 'nav-link active d-flex align-items-center gap-2' : 'nav-link d-flex align-items-center gap-2'">
+                    <i class="bi bi-file-earmark-text-fill"></i>申込履歴一覧
+                </a>
+            </div>
+        </li>
+
+        <!-- セミナー管理 -->
+        <li>
+            <button type="button"
+                    th:class="${active == 'seminar-entries' or active == 'seminar-passed' or active == 'seminars' or active == 'seminar-schedules'} ? 'nav-section-btn' : 'nav-section-btn collapsed'"
+                    data-bs-toggle="collapse" data-bs-target="#sec-seminars">
+                セミナー管理 <i class="bi bi-chevron-down chevron"></i>
+            </button>
+            <div id="sec-seminars"
+                 th:class="${active == 'seminar-entries' or active == 'seminar-passed' or active == 'seminars' or active == 'seminar-schedules'} ? 'collapse show' : 'collapse'">
+                <a th:href="@{/admin/seminars/entries}"
+                   th:class="${active == 'seminar-entries'} ? 'nav-link active d-flex align-items-center gap-2' : 'nav-link d-flex align-items-center gap-2'">
+                    <i class="bi bi-person-check-fill"></i>セミナー申込一覧
+                </a>
+                <a th:href="@{/admin/seminars/passed}"
+                   th:class="${active == 'seminar-passed'} ? 'nav-link active d-flex align-items-center gap-2' : 'nav-link d-flex align-items-center gap-2'">
+                    <i class="bi bi-award-fill"></i>合格者一覧
+                </a>
+                <a th:href="@{/admin/seminars}"
+                   th:class="${active == 'seminars'} ? 'nav-link active d-flex align-items-center gap-2' : 'nav-link d-flex align-items-center gap-2'">
+                    <i class="bi bi-collection-fill"></i>セミナー一覧
+                </a>
+                <a th:href="@{/admin/seminars/schedules}"
+                   th:class="${active == 'seminar-schedules'} ? 'nav-link active d-flex align-items-center gap-2' : 'nav-link d-flex align-items-center gap-2'">
+                    <i class="bi bi-calendar-week-fill"></i>セミナー日程一覧
+                </a>
+            </div>
+        </li>
+
+        <!-- ユーザー管理 -->
+        <li>
+            <button type="button"
+                    th:class="${active == 'users' or active == 'user-qualifications' or active == 'qualification-master'} ? 'nav-section-btn' : 'nav-section-btn collapsed'"
+                    data-bs-toggle="collapse" data-bs-target="#sec-users">
+                ユーザー管理 <i class="bi bi-chevron-down chevron"></i>
+            </button>
+            <div id="sec-users"
+                 th:class="${active == 'users' or active == 'user-qualifications' or active == 'qualification-master'} ? 'collapse show' : 'collapse'">
+                <a th:href="@{/admin/users}"
+                   th:class="${active == 'users'} ? 'nav-link active d-flex align-items-center gap-2' : 'nav-link d-flex align-items-center gap-2'">
+                    <i class="bi bi-people-fill"></i>ユーザー一覧
+                </a>
+                <a th:href="@{/admin/users/qualifications}"
+                   th:class="${active == 'user-qualifications'} ? 'nav-link active d-flex align-items-center gap-2' : 'nav-link d-flex align-items-center gap-2'">
+                    <i class="bi bi-patch-check-fill"></i>資格一覧
+                </a>
+                <a th:href="@{/admin/qualifications/master}"
+                   th:class="${active == 'qualification-master'} ? 'nav-link active d-flex align-items-center gap-2' : 'nav-link d-flex align-items-center gap-2'">
+                    <i class="bi bi-list-check"></i>資格マスタ管理
+                </a>
+            </div>
+        </li>
+
+        <!-- インフォメーション -->
+        <li>
+            <button type="button"
+                    th:class="${active == 'information-new' or active == 'information' or active == 'information-checklist' or active == 'information-master'} ? 'nav-section-btn' : 'nav-section-btn collapsed'"
+                    data-bs-toggle="collapse" data-bs-target="#sec-information">
+                インフォメーション <i class="bi bi-chevron-down chevron"></i>
+            </button>
+            <div id="sec-information"
+                 th:class="${active == 'information-new' or active == 'information' or active == 'information-checklist' or active == 'information-master'} ? 'collapse show' : 'collapse'">
+                <a th:href="@{/admin/information/new}"
+                   th:class="${active == 'information-new'} ? 'nav-link active d-flex align-items-center gap-2' : 'nav-link d-flex align-items-center gap-2'">
+                    <i class="bi bi-plus-circle-fill"></i>新規登録
+                </a>
+                <a th:href="@{/admin/information}"
+                   th:class="${active == 'information'} ? 'nav-link active d-flex align-items-center gap-2' : 'nav-link d-flex align-items-center gap-2'">
+                    <i class="bi bi-bell-fill"></i>インフォメーション一覧
+                </a>
+                <a th:href="@{/admin/information/checklist}"
+                   th:class="${active == 'information-checklist'} ? 'nav-link active d-flex align-items-center gap-2' : 'nav-link d-flex align-items-center gap-2'">
+                    <i class="bi bi-check2-square"></i>チェックリスト
+                </a>
+                <a th:href="@{/admin/information/master}"
+                   th:class="${active == 'information-master'} ? 'nav-link active d-flex align-items-center gap-2' : 'nav-link d-flex align-items-center gap-2'">
+                    <i class="bi bi-gear-fill"></i>マスタ管理
+                </a>
+            </div>
+        </li>
+
+        <!-- 問い合わせ -->
+        <li>
+            <button type="button"
+                    th:class="${active == 'inquiries' or active == 'inquiry-checklist'} ? 'nav-section-btn' : 'nav-section-btn collapsed'"
+                    data-bs-toggle="collapse" data-bs-target="#sec-inquiries">
+                問い合わせ <i class="bi bi-chevron-down chevron"></i>
+            </button>
+            <div id="sec-inquiries"
+                 th:class="${active == 'inquiries' or active == 'inquiry-checklist'} ? 'collapse show' : 'collapse'">
+                <a th:href="@{/admin/inquiries}"
+                   th:class="${active == 'inquiries'} ? 'nav-link active d-flex align-items-center gap-2' : 'nav-link d-flex align-items-center gap-2'">
+                    <i class="bi bi-chat-dots-fill"></i>問い合わせ一覧
+                </a>
+                <a th:href="@{/admin/inquiries/checklist}"
+                   th:class="${active == 'inquiry-checklist'} ? 'nav-link active d-flex align-items-center gap-2' : 'nav-link d-flex align-items-center gap-2'">
+                    <i class="bi bi-check2-square"></i>チェックリスト
+                </a>
+            </div>
+        </li>
+
+        <!-- FAQ -->
+        <li>
+            <button type="button"
+                    th:class="${active == 'faq-new' or active == 'faq' or active == 'faq-checklist' or active == 'faq-master'} ? 'nav-section-btn' : 'nav-section-btn collapsed'"
+                    data-bs-toggle="collapse" data-bs-target="#sec-faq">
+                FAQ <i class="bi bi-chevron-down chevron"></i>
+            </button>
+            <div id="sec-faq"
+                 th:class="${active == 'faq-new' or active == 'faq' or active == 'faq-checklist' or active == 'faq-master'} ? 'collapse show' : 'collapse'">
+                <a th:href="@{/admin/faq/new}"
+                   th:class="${active == 'faq-new'} ? 'nav-link active d-flex align-items-center gap-2' : 'nav-link d-flex align-items-center gap-2'">
+                    <i class="bi bi-plus-circle-fill"></i>新規登録
+                </a>
+                <a th:href="@{/admin/faq}"
+                   th:class="${active == 'faq'} ? 'nav-link active d-flex align-items-center gap-2' : 'nav-link d-flex align-items-center gap-2'">
+                    <i class="bi bi-question-circle-fill"></i>FAQ一覧
+                </a>
+                <a th:href="@{/admin/faq/checklist}"
+                   th:class="${active == 'faq-checklist'} ? 'nav-link active d-flex align-items-center gap-2' : 'nav-link d-flex align-items-center gap-2'">
+                    <i class="bi bi-check2-square"></i>チェックリスト
+                </a>
+                <a th:href="@{/admin/faq/master}"
+                   th:class="${active == 'faq-master'} ? 'nav-link active d-flex align-items-center gap-2' : 'nav-link d-flex align-items-center gap-2'">
+                    <i class="bi bi-gear-fill"></i>マスタ管理
+                </a>
+            </div>
+        </li>
+
+        <!-- その他 -->
+        <li>
+            <button type="button"
+                    th:class="${active == 'admins' or active == 'permissions' or active == 'history' or active == 'notification'} ? 'nav-section-btn' : 'nav-section-btn collapsed'"
+                    data-bs-toggle="collapse" data-bs-target="#sec-others">
+                その他 <i class="bi bi-chevron-down chevron"></i>
+            </button>
+            <div id="sec-others"
+                 th:class="${active == 'admins' or active == 'permissions' or active == 'history' or active == 'notification'} ? 'collapse show' : 'collapse'">
+                <a th:href="@{/admin/admins}"
+                   th:class="${active == 'admins'} ? 'nav-link active d-flex align-items-center gap-2' : 'nav-link d-flex align-items-center gap-2'">
+                    <i class="bi bi-shield-lock-fill"></i>管理者一覧
+                </a>
+                <a th:href="@{/admin/admins/permissions}"
+                   th:class="${active == 'permissions'} ? 'nav-link active d-flex align-items-center gap-2' : 'nav-link d-flex align-items-center gap-2'">
+                    <i class="bi bi-key-fill"></i>権限設定
+                </a>
+                <a th:href="@{/admin/history}"
+                   th:class="${active == 'history'} ? 'nav-link active d-flex align-items-center gap-2' : 'nav-link d-flex align-items-center gap-2'">
+                    <i class="bi bi-clock-history"></i>変更履歴
+                </a>
+                <a th:href="@{/admin/notification}"
+                   th:class="${active == 'notification'} ? 'nav-link active d-flex align-items-center gap-2' : 'nav-link d-flex align-items-center gap-2'">
+                    <i class="bi bi-envelope-fill"></i>メール通知設定
+                </a>
+            </div>
+        </li>
+    </ul>
+</nav>
+
+<!-- ===== TOPBAR fragment ===== -->
+<div th:fragment="topbar" class="admin-topbar d-flex align-items-center px-4 gap-3">
+    <div class="flex-grow-1 small fw-semibold text-muted"></div>
+    <span class="text-muted small">
+        <i class="bi bi-shield-check me-1 text-primary"></i>
+        <span sec:authentication="name">管理者</span> さん
+    </span>
+    <form th:action="@{/admin/logout}" method="post">
+        <button type="submit" class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-box-arrow-right me-1"></i>ログアウト
+        </button>
+    </form>
+</div>
+
+<!-- ===== SCRIPTS fragment ===== -->
+<div th:fragment="scripts">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</div>
+
+</body>
+</html>
