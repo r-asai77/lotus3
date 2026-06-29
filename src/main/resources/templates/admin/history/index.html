@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ja">
+<head th:replace="~{admin/layout/base :: head(title='変更履歴', pageStyle=null)}"></head>
+<body class="d-flex" style="min-height:100vh">
+
+<div th:replace="~{admin/layout/base :: sidebar('history')}"></div>
+
+<div class="admin-main flex-grow-1 d-flex flex-column">
+<div th:replace="~{admin/layout/base :: topbar}"></div>
+
+<main class="p-4 flex-grow-1">
+
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h5 class="fw-bold mb-0">変更履歴</h5>
+            <div class="text-muted small">管理サイト上での操作ログを閲覧できます（読み取り専用）</div>
+        </div>
+        <button class="btn btn-outline-success btn-sm">
+            <i class="bi bi-download me-1"></i>CSV出力
+        </button>
+    </div>
+
+    <!-- フィルター -->
+    <div class="card mb-4">
+        <div class="card-body p-3">
+            <div class="row g-2 align-items-end">
+                <div class="col-md-2">
+                    <label class="form-label small fw-semibold mb-1">日付（開始）</label>
+                    <input type="date" class="form-control form-control-sm" value="2026-06-01">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label small fw-semibold mb-1">日付（終了）</label>
+                    <input type="date" class="form-control form-control-sm" value="2026-06-29">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label small fw-semibold mb-1">操作者</label>
+                    <select class="form-select form-select-sm">
+                        <option value="">すべて</option>
+                        <option>admin</option>
+                        <option>管理者A</option>
+                        <option>管理者B</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label small fw-semibold mb-1">操作種別</label>
+                    <select class="form-select form-select-sm">
+                        <option value="">すべて</option>
+                        <option>追加</option>
+                        <option>更新</option>
+                        <option>削除</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label small fw-semibold mb-1">対象機能</label>
+                    <select class="form-select form-select-sm">
+                        <option value="">すべて</option>
+                        <option>セミナー</option>
+                        <option>インフォメーション</option>
+                        <option>FAQ</option>
+                        <option>問い合わせ</option>
+                        <option>ユーザー</option>
+                        <option>管理者</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary btn-sm w-100">
+                        <i class="bi bi-search me-1"></i>検索
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 履歴一覧 -->
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 small">
+                <thead class="table-light">
+                    <tr>
+                        <th class="px-4" style="width:140px">日時</th>
+                        <th style="width:90px">操作者</th>
+                        <th style="width:60px">種別</th>
+                        <th style="width:110px">対象機能</th>
+                        <th>変更内容</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="px-4 text-muted">2026-06-29 17:05</td>
+                        <td>管理者A</td>
+                        <td><span class="badge bg-primary">更新</span></td>
+                        <td><span class="badge bg-light text-dark border">インフォメーション</span></td>
+                        <td>「システムメンテナンスのお知らせ」掲載終了日を 2026-07-02 → 2026-07-10 に変更</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 text-muted">2026-06-29 16:50</td>
+                        <td>admin</td>
+                        <td><span class="badge bg-success">追加</span></td>
+                        <td><span class="badge bg-light text-dark border">FAQ</span></td>
+                        <td>FAQ「パスワードを変更したい場合はどうすればよいですか？」を登録</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 text-muted">2026-06-29 15:30</td>
+                        <td>管理者B</td>
+                        <td><span class="badge bg-primary">更新</span></td>
+                        <td><span class="badge bg-light text-dark border">セミナー</span></td>
+                        <td>セミナー「AWS基礎 2026年7月開催」ステータスを 募集中 → 満席 に変更</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 text-muted">2026-06-28 11:20</td>
+                        <td>admin</td>
+                        <td><span class="badge bg-success">追加</span></td>
+                        <td><span class="badge bg-light text-dark border">インフォメーション</span></td>
+                        <td>インフォメーション「新しいセミナー日程が追加されました」を登録</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 text-muted">2026-06-27 10:05</td>
+                        <td>管理者A</td>
+                        <td><span class="badge bg-primary">更新</span></td>
+                        <td><span class="badge bg-light text-dark border">問い合わせ</span></td>
+                        <td>問い合わせ #INQ-2026-00123 ステータスを 未対応 → 対応中 に変更</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 text-muted">2026-06-26 14:45</td>
+                        <td>admin</td>
+                        <td><span class="badge bg-danger">削除</span></td>
+                        <td><span class="badge bg-light text-dark border">FAQ</span></td>
+                        <td>FAQ「旧バージョンのセミナーについて」を削除</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 text-muted">2026-06-25 09:00</td>
+                        <td>admin</td>
+                        <td><span class="badge bg-success">追加</span></td>
+                        <td><span class="badge bg-light text-dark border">管理者</span></td>
+                        <td>管理者「管理者B」を追加（権限：GENERAL）</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 text-muted">2026-06-24 16:30</td>
+                        <td>管理者A</td>
+                        <td><span class="badge bg-primary">更新</span></td>
+                        <td><span class="badge bg-light text-dark border">ユーザー</span></td>
+                        <td>ユーザー「田中 太郎」に資格B を登録</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer bg-white d-flex align-items-center justify-content-between py-2 px-4">
+            <div class="small text-muted">1〜8 件 / 全 156 件</div>
+            <nav>
+                <ul class="pagination pagination-sm mb-0">
+                    <li class="page-item disabled"><a class="page-link">前へ</a></li>
+                    <li class="page-item active"><a class="page-link">1</a></li>
+                    <li class="page-item"><a class="page-link">2</a></li>
+                    <li class="page-item"><a class="page-link">3</a></li>
+                    <li class="page-item"><a class="page-link">次へ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+</main>
+</div>
+
+<th:block th:replace="~{admin/layout/base :: scripts}"></th:block>
+</body>
+</html>

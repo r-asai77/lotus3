@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ja">
+<head th:replace="~{admin/layout/base :: head(title='インフォメーションチェックリスト', pageStyle=null)}"></head>
+<body class="d-flex" style="min-height:100vh">
+
+<div th:replace="~{admin/layout/base :: sidebar('information-checklist')}"></div>
+
+<div class="admin-main flex-grow-1 d-flex flex-column">
+<div th:replace="~{admin/layout/base :: topbar}"></div>
+
+<main class="p-4 flex-grow-1">
+
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h5 class="fw-bold mb-0">インフォメーションチェックリスト</h5>
+            <div class="text-muted small">掲載期限・内容の定期確認と更新管理</div>
+        </div>
+        <button class="btn btn-outline-success btn-sm">
+            <i class="bi bi-download me-1"></i>CSV出力
+        </button>
+    </div>
+
+    <!-- サマリー -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="card text-center py-3">
+                <div class="fs-3 fw-bold">8</div>
+                <div class="small text-muted">総件数</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center py-3">
+                <div class="fs-3 fw-bold text-success">5</div>
+                <div class="small text-muted">公開中</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center py-3">
+                <div class="fs-3 fw-bold text-warning">2</div>
+                <div class="small text-muted">期限切れ間近（7日以内）</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center py-3">
+                <div class="fs-3 fw-bold text-secondary">1</div>
+                <div class="small text-muted">下書き</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- フィルター -->
+    <div class="card mb-4">
+        <div class="card-body p-3">
+            <div class="row g-2 align-items-end">
+                <div class="col-md-4">
+                    <label class="form-label small fw-semibold mb-1">キーワード</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="タイトルで検索">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label small fw-semibold mb-1">カテゴリ</label>
+                    <select class="form-select form-select-sm">
+                        <option value="">すべて</option>
+                        <option>重要</option>
+                        <option>お知らせ</option>
+                        <option>一般</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label small fw-semibold mb-1">状態</label>
+                    <select class="form-select form-select-sm">
+                        <option value="">すべて</option>
+                        <option>公開中</option>
+                        <option>期限切れ間近</option>
+                        <option>下書き</option>
+                        <option>終了</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary btn-sm w-100">
+                        <i class="bi bi-search me-1"></i>検索
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- チェックリスト -->
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 small">
+                <thead class="table-light">
+                    <tr>
+                        <th class="px-4" style="width:40px">
+                            <input type="checkbox" class="form-check-input">
+                        </th>
+                        <th>タイトル</th>
+                        <th style="width:80px">カテゴリ</th>
+                        <th style="width:90px">掲載日</th>
+                        <th style="width:100px">掲載終了日</th>
+                        <th style="width:90px">残り日数</th>
+                        <th style="width:75px">状態</th>
+                        <th style="width:80px">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-warning">
+                        <td class="px-4"><input type="checkbox" class="form-check-input"></td>
+                        <td>
+                            <div class="fw-semibold">システムメンテナンスのお知らせ</div>
+                            <div style="font-size:.72rem" class="text-warning fw-semibold">
+                                <i class="bi bi-exclamation-triangle me-1"></i>掲載終了まで3日です
+                            </div>
+                        </td>
+                        <td><span class="badge bg-danger">重要</span></td>
+                        <td>2026-06-29</td>
+                        <td>2026-07-02</td>
+                        <td><span class="text-warning fw-semibold">3日</span></td>
+                        <td><span class="badge bg-success">公開中</span></td>
+                        <td>
+                            <a th:href="@{/admin/information}" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr class="table-warning">
+                        <td class="px-4"><input type="checkbox" class="form-check-input"></td>
+                        <td>
+                            <div class="fw-semibold">個人情報取扱いポリシー改定のお知らせ</div>
+                            <div style="font-size:.72rem" class="text-warning fw-semibold">
+                                <i class="bi bi-exclamation-triangle me-1"></i>掲載終了まで5日です
+                            </div>
+                        </td>
+                        <td><span class="badge bg-danger">重要</span></td>
+                        <td>2026-06-05</td>
+                        <td>2026-07-04</td>
+                        <td><span class="text-warning fw-semibold">5日</span></td>
+                        <td><span class="badge bg-success">公開中</span></td>
+                        <td>
+                            <a th:href="@{/admin/information}" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-4"><input type="checkbox" class="form-check-input"></td>
+                        <td>
+                            <div class="fw-semibold">新しいセミナー日程が追加されました</div>
+                        </td>
+                        <td><span class="badge bg-primary">お知らせ</span></td>
+                        <td>2026-06-25</td>
+                        <td class="text-muted">無期限</td>
+                        <td class="text-muted">—</td>
+                        <td><span class="badge bg-success">公開中</span></td>
+                        <td>
+                            <a th:href="@{/admin/information}" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-4"><input type="checkbox" class="form-check-input"></td>
+                        <td>
+                            <div class="fw-semibold">よくあるご質問を更新しました</div>
+                        </td>
+                        <td><span class="badge bg-secondary">一般</span></td>
+                        <td>2026-06-20</td>
+                        <td class="text-muted">無期限</td>
+                        <td class="text-muted">—</td>
+                        <td><span class="badge bg-success">公開中</span></td>
+                        <td>
+                            <a th:href="@{/admin/information}" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr class="text-muted">
+                        <td class="px-4"><input type="checkbox" class="form-check-input"></td>
+                        <td>
+                            <div class="fw-semibold">サービス利用ガイドを更新しました</div>
+                        </td>
+                        <td><span class="badge bg-secondary">一般</span></td>
+                        <td class="text-muted">—</td>
+                        <td class="text-muted">—</td>
+                        <td class="text-muted">—</td>
+                        <td><span class="badge bg-secondary">下書き</span></td>
+                        <td>
+                            <a th:href="@{/admin/information}" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer bg-white py-2 px-4 d-flex align-items-center gap-3">
+            <span class="small text-muted">選択中：<strong>0</strong> 件</span>
+            <button class="btn btn-outline-warning btn-sm" disabled>
+                <i class="bi bi-arrow-clockwise me-1"></i>一括：掲載終了日を延長
+            </button>
+            <button class="btn btn-outline-secondary btn-sm" disabled>
+                <i class="bi bi-eye-slash me-1"></i>一括：非公開にする
+            </button>
+        </div>
+    </div>
+
+</main>
+</div>
+
+<th:block th:replace="~{admin/layout/base :: scripts}"></th:block>
+</body>
+</html>

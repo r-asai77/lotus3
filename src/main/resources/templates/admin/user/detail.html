@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ja">
+<head th:replace="~{admin/layout/base :: head(title='ユーザー詳細', pageStyle=null)}"></head>
+<body class="d-flex" style="min-height:100vh">
+
+<div th:replace="~{admin/layout/base :: sidebar('users')}"></div>
+
+<div class="admin-main flex-grow-1 d-flex flex-column">
+<div th:replace="~{admin/layout/base :: topbar}"></div>
+
+<main class="p-4 flex-grow-1">
+
+    <!-- ページヘッダー -->
+    <div class="d-flex align-items-center gap-3 mb-4">
+        <a th:href="@{/admin/users}" class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-arrow-left me-1"></i>一覧へ戻る
+        </a>
+        <div>
+            <h5 class="fw-bold mb-0">ユーザー詳細</h5>
+            <div class="text-muted small">ID: 1</div>
+        </div>
+    </div>
+
+    <!-- ユーザーサマリー -->
+    <div class="card mb-4">
+        <div class="card-body px-4 py-3">
+            <div class="d-flex align-items-center gap-4">
+                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center flex-shrink-0"
+                     style="width:60px;height:60px;font-size:1.5rem">
+                    <i class="bi bi-person-fill"></i>
+                </div>
+                <div class="flex-grow-1">
+                    <h5 class="fw-bold mb-0">山田 太郎</h5>
+                    <div class="text-muted small mb-1">yamada_taro</div>
+                    <div>
+                        <span class="badge bg-success me-1">資格A</span>
+                        <span class="badge bg-info text-dark">資格B</span>
+                    </div>
+                </div>
+                <div class="text-end small text-muted">
+                    <div>登録日：2025-04-01</div>
+                    <div>最終ログイン：2026-06-28 09:12</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- タブナビゲーション -->
+    <ul class="nav nav-tabs mb-4" id="userDetailTab">
+        <li class="nav-item">
+            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab-profile">
+                <i class="bi bi-person me-1"></i>基本情報
+            </button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-qualifications">
+                <i class="bi bi-patch-check me-1"></i>所持資格
+                <span class="badge bg-success ms-1">2</span>
+            </button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-seminars">
+                <i class="bi bi-calendar-check me-1"></i>セミナー申込履歴
+                <span class="badge bg-secondary ms-1">5</span>
+            </button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-inquiries">
+                <i class="bi bi-chat-dots me-1"></i>問い合わせ履歴
+                <span class="badge bg-secondary ms-1">3</span>
+            </button>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+
+        <!-- 基本情報タブ -->
+        <div class="tab-pane fade show active" id="tab-profile">
+            <div class="card" style="max-width:600px">
+                <div class="card-header bg-white py-3">
+                    <i class="bi bi-pencil-fill me-2 text-primary"></i>基本情報の編集
+                </div>
+                <div class="card-body p-4">
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold text-muted">ログインID</label>
+                        <input type="text" class="form-control bg-light" value="yamada_taro" readonly>
+                        <div class="form-text">ログインIDは変更できません</div>
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">姓 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" value="山田">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold">名 <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" value="太郎">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">メールアドレス <span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" value="yamada@example.com">
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label small fw-semibold">電話番号 <span class="text-danger">*</span></label>
+                        <input type="tel" class="form-control" value="09012345678">
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-primary px-4">
+                            <i class="bi bi-check-circle me-1"></i>更新する
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 所持資格タブ -->
+        <div class="tab-pane fade" id="tab-qualifications">
+            <div class="d-flex justify-content-end mb-3">
+                <button type="button" class="btn btn-primary btn-sm"
+                        data-bs-toggle="modal" data-bs-target="#addQualModal">
+                    <i class="bi bi-plus-circle me-1"></i>資格を追加
+                </button>
+            </div>
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0 small">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="px-4">資格名</th>
+                                <th>取得日</th>
+                                <th>有効期限</th>
+                                <th>ステータス</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="px-4 fw-semibold">資格A 上級</td>
+                                <td>2024-03-15</td>
+                                <td>2027-03-14</td>
+                                <td><span class="badge bg-success">有効</span></td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm me-1"
+                                            data-bs-toggle="modal" data-bs-target="#editQualModal">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger btn-sm">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 fw-semibold">資格B 基礎</td>
+                                <td>2025-06-01</td>
+                                <td>2028-05-31</td>
+                                <td><span class="badge bg-success">有効</span></td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm me-1"
+                                            data-bs-toggle="modal" data-bs-target="#editQualModal">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger btn-sm">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- セミナー申込履歴タブ -->
+        <div class="tab-pane fade" id="tab-seminars">
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0 small">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="px-4">申込番号</th>
+                                <th>セミナー名</th>
+                                <th>日程</th>
+                                <th>会場</th>
+                                <th>申込日</th>
+                                <th>ステータス</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="px-4 text-muted">REQ-2026-00042</td>
+                                <td class="fw-semibold">資格A取得セミナー 応用コース</td>
+                                <td>2026-07-17</td>
+                                <td>大阪会場</td>
+                                <td class="text-muted">2026-06-20</td>
+                                <td><span class="badge bg-primary">申込済</span></td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 text-muted">REQ-2025-00318</td>
+                                <td class="fw-semibold">資格B入門セミナー</td>
+                                <td>2025-06-05</td>
+                                <td>東京会場</td>
+                                <td class="text-muted">2025-05-15</td>
+                                <td><span class="badge bg-success">合格</span></td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 text-muted">REQ-2024-00187</td>
+                                <td class="fw-semibold">資格A取得セミナー 基礎コース</td>
+                                <td>2024-03-10</td>
+                                <td>名古屋会場</td>
+                                <td class="text-muted">2024-02-20</td>
+                                <td><span class="badge bg-success">合格</span></td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 text-muted">REQ-2024-00055</td>
+                                <td class="fw-semibold">資格C専門セミナー</td>
+                                <td>2024-01-22</td>
+                                <td>大阪会場</td>
+                                <td class="text-muted">2024-01-05</td>
+                                <td><span class="badge bg-secondary">不合格</span></td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 text-muted">REQ-2023-00412</td>
+                                <td class="fw-semibold">資格A入門オンラインセミナー</td>
+                                <td>2023-10-01〜31</td>
+                                <td>オンライン</td>
+                                <td class="text-muted">2023-09-18</td>
+                                <td><span class="badge bg-success">修了</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 問い合わせ履歴タブ -->
+        <div class="tab-pane fade" id="tab-inquiries">
+            <div class="card">
+                <div class="list-group list-group-flush">
+                    <a th:href="@{/admin/inquiries/1}" class="list-group-item list-group-item-action px-4 py-3 small">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <div class="d-flex align-items-center gap-2 mb-1">
+                                    <span class="badge bg-warning text-dark">対応中</span>
+                                    <span class="badge bg-light text-dark border">セミナーについて</span>
+                                </div>
+                                <div class="fw-semibold">セミナー申込内容の変更について</div>
+                                <div class="text-muted mt-1">2026-06-27 14:32</div>
+                            </div>
+                            <i class="bi bi-chevron-right text-muted"></i>
+                        </div>
+                    </a>
+                    <a th:href="@{/admin/inquiries/15}" class="list-group-item list-group-item-action px-4 py-3 small">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <div class="d-flex align-items-center gap-2 mb-1">
+                                    <span class="badge bg-secondary">クローズ</span>
+                                    <span class="badge bg-light text-dark border">アカウントについて</span>
+                                </div>
+                                <div class="fw-semibold">メールアドレスの変更について</div>
+                                <div class="text-muted mt-1">2026-02-14 10:05</div>
+                            </div>
+                            <i class="bi bi-chevron-right text-muted"></i>
+                        </div>
+                    </a>
+                    <a th:href="@{/admin/inquiries/8}" class="list-group-item list-group-item-action px-4 py-3 small">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <div class="d-flex align-items-center gap-2 mb-1">
+                                    <span class="badge bg-secondary">クローズ</span>
+                                    <span class="badge bg-light text-dark border">資格について</span>
+                                </div>
+                                <div class="fw-semibold">資格証明書の再発行について</div>
+                                <div class="text-muted mt-1">2025-11-03 09:30</div>
+                            </div>
+                            <i class="bi bi-chevron-right text-muted"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+</div>
+
+<!-- 資格追加モーダル -->
+<div class="modal fade" id="addQualModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title fw-bold">資格を追加</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">資格名 <span class="text-danger">*</span></label>
+                    <select class="form-select">
+                        <option value="">選択してください</option>
+                        <option>資格A 上級</option>
+                        <option>資格A 中級</option>
+                        <option>資格B 基礎</option>
+                        <option>資格C 専門</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">取得日 <span class="text-danger">*</span></label>
+                    <input type="date" class="form-control">
+                </div>
+                <div class="mb-0">
+                    <label class="form-label small fw-semibold">有効期限</label>
+                    <input type="date" class="form-control">
+                    <div class="form-text">資格マスタの有効期間から自動計算されます</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">キャンセル</button>
+                <button type="button" class="btn btn-primary">追加する</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 資格編集モーダル -->
+<div class="modal fade" id="editQualModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title fw-bold">資格を編集</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold text-muted">資格名</label>
+                    <input type="text" class="form-control bg-light" value="資格A 上級" readonly>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">取得日 <span class="text-danger">*</span></label>
+                    <input type="date" class="form-control" value="2024-03-15">
+                </div>
+                <div class="mb-0">
+                    <label class="form-label small fw-semibold">有効期限</label>
+                    <input type="date" class="form-control" value="2027-03-14">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">キャンセル</button>
+                <button type="button" class="btn btn-primary">更新する</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="~{admin/layout/base :: scripts}"></th:block>
+</body>
+</html>

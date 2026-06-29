@@ -1,0 +1,25 @@
+.expand-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    width: 18px;
+    flex-shrink: 0;
+    line-height: 1;
+}
+.expand-btn .expand-icon { display: inline-block; transition: transform .2s; }
+.expand-btn.collapsed .expand-icon { transform: rotate(-90deg); }
+.no-expand { width: 18px; flex-shrink: 0; display: inline-block; }
+
+.qual-table { table-layout: fixed; width: 100%; }
+.qual-table colgroup col:nth-child(1) { width: 35%; }
+.qual-table colgroup col:nth-child(2) { width: 85px; }
+.qual-table colgroup col:nth-child(4) { width: 80px; }
+.qual-table colgroup col:nth-child(5) { width: 115px; }
+
+@keyframes rowEnter {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.row-entering {
+    animation: rowEnter 0.4s ease both;
+}

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ja">
+<head th:replace="~{admin/layout/base :: head(title='問い合わせチェックリスト', pageStyle=null)}"></head>
+<body class="d-flex" style="min-height:100vh">
+
+<div th:replace="~{admin/layout/base :: sidebar('inquiry-checklist')}"></div>
+
+<div class="admin-main flex-grow-1 d-flex flex-column">
+<div th:replace="~{admin/layout/base :: topbar}"></div>
+
+<main class="p-4 flex-grow-1">
+
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h5 class="fw-bold mb-0">問い合わせチェックリスト</h5>
+            <div class="text-muted small">未対応・対応中の問い合わせ</div>
+        </div>
+        <a th:href="@{/admin/inquiries}" class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-list-ul me-1"></i>一覧へ
+        </a>
+    </div>
+
+    <!-- サマリーカード -->
+    <div class="row g-3 mb-4">
+        <div class="col-sm-4">
+            <div class="card p-3 border-start border-danger border-3">
+                <div class="d-flex align-items-center gap-3">
+                    <div>
+                        <div class="text-muted small">未対応</div>
+                        <div class="fw-bold fs-3 text-danger">7</div>
+                    </div>
+                    <i class="bi bi-exclamation-circle-fill text-danger ms-auto fs-3 opacity-25"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card p-3 border-start border-warning border-3">
+                <div class="d-flex align-items-center gap-3">
+                    <div>
+                        <div class="text-muted small">対応中</div>
+                        <div class="fw-bold fs-3 text-warning">5</div>
+                    </div>
+                    <i class="bi bi-arrow-repeat text-warning ms-auto fs-3 opacity-25"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card p-3 border-start border-info border-3">
+                <div class="d-flex align-items-center gap-3">
+                    <div>
+                        <div class="text-muted small">本日期限</div>
+                        <div class="fw-bold fs-3 text-info">2</div>
+                    </div>
+                    <i class="bi bi-alarm-fill text-info ms-auto fs-3 opacity-25"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- フィルター -->
+    <div class="d-flex gap-2 mb-3">
+        <button class="btn btn-sm btn-danger">未対応 <span class="badge bg-white text-danger ms-1">7</span></button>
+        <button class="btn btn-sm btn-outline-warning">対応中 <span class="badge bg-warning text-dark ms-1">5</span></button>
+        <button class="btn btn-sm btn-outline-secondary ms-auto">
+            <i class="bi bi-person me-1"></i>自分の担当のみ
+        </button>
+    </div>
+
+    <!-- チェックリスト -->
+    <div class="card">
+        <div class="list-group list-group-flush">
+
+            <!-- 本日期限バッジ付き -->
+            <div class="list-group-item px-4 py-3 bg-danger bg-opacity-5">
+                <div class="d-flex align-items-center gap-3">
+                    <input class="form-check-input flex-shrink-0" type="checkbox" style="width:18px;height:18px">
+                    <div class="flex-grow-1">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <span class="badge bg-danger">未対応</span>
+                            <span class="badge bg-danger bg-opacity-25 text-danger small">
+                                <i class="bi bi-alarm me-1"></i>本日期限
+                            </span>
+                            <span class="badge bg-light text-dark border small">セミナーについて</span>
+                        </div>
+                        <a th:href="@{/admin/inquiries/1}" class="fw-semibold text-decoration-none text-dark small">
+                            セミナー申込内容の変更について
+                        </a>
+                        <div class="small text-muted mt-1">
+                            山田 太郎 · 2026-06-27 14:32 受付
+                            <span class="mx-1">·</span>
+                            <span class="text-danger fw-semibold">期限：2026-06-29</span>
+                        </div>
+                    </div>
+                    <div class="text-end flex-shrink-0">
+                        <div class="small text-muted mb-1">担当者</div>
+                        <span class="small text-danger fw-semibold">未割当</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 通常未対応 -->
+            <div class="list-group-item px-4 py-3">
+                <div class="d-flex align-items-center gap-3">
+                    <input class="form-check-input flex-shrink-0" type="checkbox" style="width:18px;height:18px">
+                    <div class="flex-grow-1">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <span class="badge bg-danger">未対応</span>
+                            <span class="badge bg-light text-dark border small">資格について</span>
+                        </div>
+                        <a th:href="@{/admin/inquiries/2}" class="fw-semibold text-decoration-none text-dark small">
+                            資格証明書の再発行依頼
+                        </a>
+                        <div class="small text-muted mt-1">
+                            佐藤 花子 · 2026-06-26 10:15 受付
+                            <span class="mx-1">·</span>
+                            期限：2026-06-30
+                        </div>
+                    </div>
+                    <div class="text-end flex-shrink-0">
+                        <div class="small text-muted mb-1">担当者</div>
+                        <span class="small text-muted">未割当</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 対応中 -->
+            <div class="list-group-item px-4 py-3 bg-warning bg-opacity-5">
+                <div class="d-flex align-items-center gap-3">
+                    <input class="form-check-input flex-shrink-0" type="checkbox" style="width:18px;height:18px">
+                    <div class="flex-grow-1">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <span class="badge bg-warning text-dark">対応中</span>
+                            <span class="badge bg-danger bg-opacity-25 text-danger small">
+                                <i class="bi bi-alarm me-1"></i>本日期限
+                            </span>
+                            <span class="badge bg-light text-dark border small">アカウントについて</span>
+                        </div>
+                        <a th:href="@{/admin/inquiries/3}" class="fw-semibold text-decoration-none text-dark small">
+                            ログインできなくなった
+                        </a>
+                        <div class="small text-muted mt-1">
+                            鈴木 一郎 · 2026-06-25 09:44 受付
+                            <span class="mx-1">·</span>
+                            <span class="text-danger fw-semibold">期限：2026-06-29</span>
+                        </div>
+                    </div>
+                    <div class="text-end flex-shrink-0">
+                        <div class="small text-muted mb-1">担当者</div>
+                        <span class="small fw-semibold">田中 管理者</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="list-group-item px-4 py-3">
+                <div class="d-flex align-items-center gap-3">
+                    <input class="form-check-input flex-shrink-0" type="checkbox" style="width:18px;height:18px">
+                    <div class="flex-grow-1">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <span class="badge bg-danger">未対応</span>
+                            <span class="badge bg-light text-dark border small">その他</span>
+                        </div>
+                        <a th:href="@{/admin/inquiries/8}" class="fw-semibold text-decoration-none text-dark small">
+                            セミナーのオンライン視聴URLが届かない
+                        </a>
+                        <div class="small text-muted mt-1">
+                            小林 正樹 · 2026-06-28 08:11 受付
+                            <span class="mx-1">·</span>
+                            期限：2026-07-01
+                        </div>
+                    </div>
+                    <div class="text-end flex-shrink-0">
+                        <div class="small text-muted mb-1">担当者</div>
+                        <span class="small text-muted">未割当</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="list-group-item px-4 py-3">
+                <div class="d-flex align-items-center gap-3">
+                    <input class="form-check-input flex-shrink-0" type="checkbox" style="width:18px;height:18px">
+                    <div class="flex-grow-1">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <span class="badge bg-warning text-dark">対応中</span>
+                            <span class="badge bg-light text-dark border small">請求・支払いについて</span>
+                        </div>
+                        <a th:href="@{/admin/inquiries/9}" class="fw-semibold text-decoration-none text-dark small">
+                            請求書の宛名変更をお願いしたい
+                        </a>
+                        <div class="small text-muted mt-1">
+                            加藤 優子 · 2026-06-27 17:30 受付
+                            <span class="mx-1">·</span>
+                            期限：2026-07-02
+                        </div>
+                    </div>
+                    <div class="text-end flex-shrink-0">
+                        <div class="small text-muted mb-1">担当者</div>
+                        <span class="small fw-semibold">山本 管理者</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card-footer bg-white d-flex align-items-center gap-3 py-2 px-4">
+            <button type="button" class="btn btn-sm btn-outline-secondary" disabled>
+                <input class="form-check-input me-1" type="checkbox" disabled>全選択
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary" disabled>
+                <i class="bi bi-person-plus me-1"></i>担当者を割当
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary" disabled>
+                <i class="bi bi-arrow-repeat me-1"></i>ステータス変更
+            </button>
+        </div>
+    </div>
+
+</main>
+</div>
+
+<th:block th:replace="~{admin/layout/base :: scripts}"></th:block>
+</body>
+</html>

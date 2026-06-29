@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ja">
+<head th:replace="~{admin/layout/base :: head(title='セミナー申込一覧', pageStyle=null)}"></head>
+<body class="d-flex" style="min-height:100vh">
+
+<div th:replace="~{admin/layout/base :: sidebar('seminar-entries')}"></div>
+
+<div class="admin-main flex-grow-1 d-flex flex-column">
+<div th:replace="~{admin/layout/base :: topbar}"></div>
+
+<main class="p-4 flex-grow-1">
+
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h5 class="fw-bold mb-0">セミナー申込一覧</h5>
+            <div class="text-muted small">全ユーザーのセミナー申込状況 <strong>520</strong> 件</div>
+        </div>
+    </div>
+
+    <!-- フィルター -->
+    <div class="card mb-4">
+        <div class="card-body p-3">
+            <div class="row g-2 align-items-end">
+                <div class="col-md-3">
+                    <label class="form-label small fw-semibold mb-1">ユーザー名 / ID</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="氏名またはIDで検索">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label small fw-semibold mb-1">セミナー名</label>
+                    <select class="form-select form-select-sm">
+                        <option value="">すべて</option>
+                        <option>資格A取得セミナー 基礎コース</option>
+                        <option>資格A取得セミナー 応用コース</option>
+                        <option>資格B入門オンラインセミナー</option>
+                        <option>資格C上級セミナー 集中コース</option>
+                        <option>資格A取得オンラインセミナー 入門編</option>
+                        <option>資格B実践セミナー ワークショップ</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label small fw-semibold mb-1">種別</label>
+                    <select class="form-select form-select-sm">
+                        <option value="">すべて</option>
+                        <option>セミナー</option>
+                        <option>オンライン</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label small fw-semibold mb-1">ステータス</label>
+                    <select class="form-select form-select-sm">
+                        <option value="">すべて</option>
+                        <option>申込済</option>
+                        <option>受講中</option>
+                        <option>受講完了</option>
+                        <option>キャンセル</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary btn-sm w-100">
+                        <i class="bi bi-search me-1"></i>検索
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 一覧 -->
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 small">
+                <thead class="table-light">
+                    <tr>
+                        <th class="px-4">ユーザー名</th>
+                        <th>セミナー名 / 日程</th>
+                        <th style="width:100px">種別</th>
+                        <th style="width:90px">申込日</th>
+                        <th style="width:90px">ステータス</th>
+                        <th style="width:90px">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="px-4">
+                            <div class="fw-semibold">山田 太郎</div>
+                            <div class="text-muted" style="font-size:.72rem">yamada_taro</div>
+                        </td>
+                        <td>
+                            <div class="fw-semibold">資格A取得セミナー 応用コース</div>
+                            <div class="text-muted mt-1">
+                                <i class="bi bi-calendar me-1"></i>2026-07-17
+                                <span class="ms-2"><i class="bi bi-geo-alt me-1"></i>大阪会場</span>
+                            </div>
+                        </td>
+                        <td><span class="badge bg-info text-dark">セミナー</span></td>
+                        <td>2026-06-15</td>
+                        <td><span class="badge bg-primary">申込済</span></td>
+                        <td>
+                            <a th:href="@{/admin/users/1}" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-person me-1"></i>詳細
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-4">
+                            <div class="fw-semibold">山田 太郎</div>
+                            <div class="text-muted" style="font-size:.72rem">yamada_taro</div>
+                        </td>
+                        <td>
+                            <div class="fw-semibold">資格B入門オンラインセミナー</div>
+                            <div class="text-muted mt-1">
+                                <i class="bi bi-calendar me-1"></i>2026-07-01 〜 2026-07-31
+                                <span class="ms-2"><i class="bi bi-camera-video me-1"></i>オンライン配信</span>
+                            </div>
+                        </td>
+                        <td><span class="badge bg-success">オンライン</span></td>
+                        <td>2026-06-20</td>
+                        <td><span class="badge bg-primary">申込済</span></td>
+                        <td>
+                            <a th:href="@{/admin/users/1}" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-person me-1"></i>詳細
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-4">
+                            <div class="fw-semibold">佐藤 花子</div>
+                            <div class="text-muted" style="font-size:.72rem">sato_hanako</div>
+                        </td>
+                        <td>
+                            <div class="fw-semibold">資格C上級セミナー 集中コース</div>
+                            <div class="text-muted mt-1">
+                                <i class="bi bi-calendar me-1"></i>2026-06-20 〜 2026-06-21
+                                <span class="ms-2"><i class="bi bi-geo-alt me-1"></i>名古屋会場</span>
+                            </div>
+                        </td>
+                        <td><span class="badge bg-info text-dark">セミナー</span></td>
+                        <td>2026-05-30</td>
+                        <td><span class="badge bg-info text-dark">受講完了</span></td>
+                        <td>
+                            <a th:href="@{/admin/users/2}" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-person me-1"></i>詳細
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-4">
+                            <div class="fw-semibold">田中 美咲</div>
+                            <div class="text-muted" style="font-size:.72rem">tanaka_misaki</div>
+                        </td>
+                        <td>
+                            <div class="fw-semibold">資格A取得オンラインセミナー 入門編</div>
+                            <div class="text-muted mt-1">
+                                <i class="bi bi-calendar me-1"></i>2026-05-01 〜 2026-05-31
+                                <span class="ms-2"><i class="bi bi-camera-video me-1"></i>オンライン配信</span>
+                            </div>
+                        </td>
+                        <td><span class="badge bg-success">オンライン</span></td>
+                        <td>2026-04-25</td>
+                        <td><span class="badge bg-info text-dark">受講完了</span></td>
+                        <td>
+                            <a th:href="@{/admin/users/4}" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-person me-1"></i>詳細
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-4">
+                            <div class="fw-semibold">中村 陽介</div>
+                            <div class="text-muted" style="font-size:.72rem">nakamura_yosuke</div>
+                        </td>
+                        <td>
+                            <div class="fw-semibold">資格B実践セミナー ワークショップ</div>
+                            <div class="text-muted mt-1">
+                                <i class="bi bi-calendar me-1"></i>2026-08-05 〜 2026-08-06
+                                <span class="ms-2"><i class="bi bi-geo-alt me-1"></i>福岡会場</span>
+                            </div>
+                        </td>
+                        <td><span class="badge bg-info text-dark">セミナー</span></td>
+                        <td>2026-06-22</td>
+                        <td><span class="badge bg-primary">申込済</span></td>
+                        <td>
+                            <a th:href="@{/admin/users/7}" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-person me-1"></i>詳細
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-4">
+                            <div class="fw-semibold">佐藤 花子</div>
+                            <div class="text-muted" style="font-size:.72rem">sato_hanako</div>
+                        </td>
+                        <td>
+                            <div class="fw-semibold">資格A取得セミナー 基礎コース</div>
+                            <div class="text-muted mt-1">
+                                <i class="bi bi-calendar me-1"></i>2026-07-10
+                                <span class="ms-2"><i class="bi bi-geo-alt me-1"></i>東京会場</span>
+                            </div>
+                        </td>
+                        <td><span class="badge bg-info text-dark">セミナー</span></td>
+                        <td>2026-06-01</td>
+                        <td><span class="badge bg-secondary">キャンセル</span></td>
+                        <td>
+                            <a th:href="@{/admin/users/2}" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-person me-1"></i>詳細
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer bg-white d-flex align-items-center justify-content-between py-2 px-4">
+            <div class="small text-muted">1〜6 件 / 全 520 件</div>
+            <nav>
+                <ul class="pagination pagination-sm mb-0">
+                    <li class="page-item disabled"><a class="page-link">前へ</a></li>
+                    <li class="page-item active"><a class="page-link">1</a></li>
+                    <li class="page-item"><a class="page-link">2</a></li>
+                    <li class="page-item"><a class="page-link">3</a></li>
+                    <li class="page-item"><a class="page-link">…</a></li>
+                    <li class="page-item"><a class="page-link">次へ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+</main>
+</div>
+
+<th:block th:replace="~{admin/layout/base :: scripts}"></th:block>
+</body>
+</html>

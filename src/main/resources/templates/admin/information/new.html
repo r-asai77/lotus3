@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ja">
+<head th:replace="~{admin/layout/base :: head(title='インフォメーション新規登録', pageStyle=null)}"></head>
+<body class="d-flex" style="min-height:100vh">
+
+<div th:replace="~{admin/layout/base :: sidebar('information-new')}"></div>
+
+<div class="admin-main flex-grow-1 d-flex flex-column">
+<div th:replace="~{admin/layout/base :: topbar}"></div>
+
+<main class="p-4 flex-grow-1">
+
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h5 class="fw-bold mb-0">インフォメーション 新規登録</h5>
+            <div class="text-muted small">ユーザーサイトに表示するインフォメーションを登録します</div>
+        </div>
+        <a th:href="@{/admin/information}" class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-arrow-left me-1"></i>一覧に戻る
+        </a>
+    </div>
+
+    <div class="alert alert-info small d-flex align-items-start gap-2 mb-4">
+        <i class="bi bi-info-circle-fill mt-1 flex-shrink-0"></i>
+        <div>登録したインフォメーションはユーザーサイトの<strong>インフォメーション一覧</strong>に表示されます。表示対象資格を指定すると、その資格を所持するユーザーのみに表示されます。</div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header bg-white fw-semibold py-3">
+                    <i class="bi bi-bell me-2 text-primary"></i>内容
+                </div>
+                <div class="card-body p-4">
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <label class="form-label small fw-semibold">カテゴリ <span class="text-danger">*</span></label>
+                            <select class="form-select">
+                                <option value="">選択してください</option>
+                                <option>重要</option>
+                                <option>お知らせ</option>
+                                <option>一般</option>
+                            </select>
+                            <div class="form-text">ユーザーサイトの一覧でバッジ表示されます</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small fw-semibold">掲載日 <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" value="2026-06-29">
+                            <div class="form-text">ユーザーサイトの一覧に表示される日付</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small fw-semibold">掲載終了日</label>
+                            <input type="date" class="form-control">
+                            <div class="form-text">未設定の場合は無期限で掲載</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label small fw-semibold">タイトル <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="例：システムメンテナンスのお知らせ">
+                        <div class="form-text">ユーザーサイトの一覧・詳細ページに表示されます</div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label small fw-semibold">本文 <span class="text-danger">*</span></label>
+                        <textarea class="form-control" rows="10"
+                                  placeholder="本文を入力してください。ユーザーサイトの詳細ページに表示されます。"></textarea>
+                    </div>
+
+                    <div class="mb-0">
+                        <label class="form-label small fw-semibold">表示対象資格</label>
+                        <div class="d-flex flex-wrap gap-3 mt-1">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="qAll" checked>
+                                <label class="form-check-label small" for="qAll">すべて（資格問わず表示）</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="qA">
+                                <label class="form-check-label small" for="qA">資格A</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="qB">
+                                <label class="form-check-label small" for="qB">資格B</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="qC">
+                                <label class="form-check-label small" for="qC">資格C</label>
+                            </div>
+                        </div>
+                        <div class="form-text">「すべて」チェック時は資格に関わらず全ユーザーに表示されます</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <!-- 公開設定 -->
+            <div class="card mb-4">
+                <div class="card-header bg-white fw-semibold py-3">
+                    <i class="bi bi-eye me-2 text-secondary"></i>公開設定
+                </div>
+                <div class="card-body p-4">
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" name="status" id="statusPublic" checked>
+                        <label class="form-check-label fw-semibold" for="statusPublic">
+                            <span class="badge bg-success me-1">公開</span>
+                            ユーザーサイトに表示する
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="status" id="statusDraft">
+                        <label class="form-check-label fw-semibold" for="statusDraft">
+                            <span class="badge bg-secondary me-1">下書き</span>
+                            下書きとして保存する
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ユーザーサイト表示イメージ -->
+            <div class="card">
+                <div class="card-header bg-white fw-semibold py-3">
+                    <i class="bi bi-eye-fill me-2 text-info"></i>ユーザーサイト 表示イメージ
+                </div>
+                <div class="card-body p-3">
+                    <p class="small text-muted mb-2">一覧での表示：</p>
+                    <div class="border rounded p-2 mb-3" style="font-size:.8rem">
+                        <div class="d-flex align-items-start gap-2 py-1">
+                            <span class="badge bg-danger flex-shrink-0">重要</span>
+                            <div>
+                                <div class="fw-semibold">タイトルがここに表示されます</div>
+                                <div class="text-muted" style="font-size:.75rem">内容の冒頭部分が表示されます…</div>
+                            </div>
+                            <span class="text-muted ms-auto" style="font-size:.72rem;white-space:nowrap">2026-06-29</span>
+                        </div>
+                    </div>
+                    <p class="small text-muted mb-2">詳細ページ：</p>
+                    <div class="border rounded p-2" style="font-size:.8rem">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <span class="badge bg-danger">重要</span>
+                            <span class="text-muted" style="font-size:.72rem">2026-06-29</span>
+                        </div>
+                        <div class="fw-semibold mb-1">タイトル</div>
+                        <hr class="my-1">
+                        <div class="text-muted" style="font-size:.75rem">本文がここに表示されます</div>
+                        <div class="mt-2 pt-1 border-top">
+                            <span class="text-muted" style="font-size:.72rem">表示対象資格：資格A・資格B</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 登録ボタン -->
+    <div class="d-flex gap-3 mt-4">
+        <button type="button" class="btn btn-primary px-5">
+            <i class="bi bi-check-circle me-1"></i>登録する
+        </button>
+        <a th:href="@{/admin/information}" class="btn btn-outline-secondary px-4">
+            キャンセル
+        </a>
+    </div>
+
+</main>
+</div>
+
+<th:block th:replace="~{admin/layout/base :: scripts}"></th:block>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ja">
+<head th:replace="~{admin/layout/base :: head(title='インフォメーションマスタ管理', pageStyle=null)}"></head>
+<body class="d-flex" style="min-height:100vh">
+
+<div th:replace="~{admin/layout/base :: sidebar('information-master')}"></div>
+
+<div class="admin-main flex-grow-1 d-flex flex-column">
+<div th:replace="~{admin/layout/base :: topbar}"></div>
+
+<main class="p-4 flex-grow-1">
+
+    <div class="mb-4">
+        <h5 class="fw-bold mb-0">インフォメーションマスタ管理</h5>
+        <div class="text-muted small">カテゴリのマスタを管理します（ユーザーサイトの絞り込み条件・バッジ表示に使用）</div>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- カテゴリマスタ -->
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header bg-white py-2 px-4 d-flex align-items-center justify-content-between">
+                    <span class="fw-semibold">
+                        <i class="bi bi-tag me-2 text-primary"></i>カテゴリマスタ
+                    </span>
+                    <button class="btn btn-primary btn-sm"
+                            data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+                        <i class="bi bi-plus-circle me-1"></i>追加
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0 small">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="px-4" style="width:40px">順</th>
+                                <th>カテゴリ名</th>
+                                <th style="width:80px">バッジ色</th>
+                                <th style="width:60px">件数</th>
+                                <th style="width:75px">ステータス</th>
+                                <th style="width:80px">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="px-4 text-muted text-center">1</td>
+                                <td class="fw-semibold">重要</td>
+                                <td><span class="badge bg-danger">重要</span></td>
+                                <td class="text-center">2</td>
+                                <td><span class="badge bg-success">公開</span></td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm me-1"
+                                            data-bs-toggle="modal" data-bs-target="#editCategoryModal">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger btn-sm" disabled>
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 text-muted text-center">2</td>
+                                <td class="fw-semibold">お知らせ</td>
+                                <td><span class="badge bg-primary">お知らせ</span></td>
+                                <td class="text-center">3</td>
+                                <td><span class="badge bg-success">公開</span></td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm me-1"
+                                            data-bs-toggle="modal" data-bs-target="#editCategoryModal">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger btn-sm" disabled>
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 text-muted text-center">3</td>
+                                <td class="fw-semibold">一般</td>
+                                <td><span class="badge bg-secondary">一般</span></td>
+                                <td class="text-center">3</td>
+                                <td><span class="badge bg-success">公開</span></td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm me-1"
+                                            data-bs-toggle="modal" data-bs-target="#editCategoryModal">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger btn-sm" disabled>
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 表示対象資格マスタ（参照） -->
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header bg-white py-2 px-4">
+                    <span class="fw-semibold">
+                        <i class="bi bi-patch-check me-2 text-success"></i>表示対象資格（参照）
+                    </span>
+                </div>
+                <div class="card-body p-4">
+                    <p class="small text-muted mb-3">
+                        インフォメーションの表示対象として設定できる資格の一覧です。<br>
+                        資格マスタの追加・編集は
+                        <a th:href="@{/admin/qualifications/master}" class="text-decoration-none">資格マスタ管理</a>
+                        から行ってください。
+                    </p>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="badge bg-light text-dark border px-3 py-2">
+                            <i class="bi bi-patch-check-fill text-success me-1"></i>すべて（資格問わず）
+                        </span>
+                        <span class="badge bg-light text-dark border px-3 py-2">
+                            <i class="bi bi-patch-check-fill text-success me-1"></i>資格A
+                        </span>
+                        <span class="badge bg-light text-dark border px-3 py-2">
+                            <i class="bi bi-patch-check-fill text-success me-1"></i>資格B
+                        </span>
+                        <span class="badge bg-light text-dark border px-3 py-2">
+                            <i class="bi bi-patch-check-fill text-success me-1"></i>資格C
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</main>
+</div>
+
+<!-- カテゴリ追加モーダル -->
+<div class="modal fade" id="addCategoryModal" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title fw-bold">カテゴリ 追加</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">カテゴリ名 <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" placeholder="例：緊急">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">バッジ色</label>
+                    <select class="form-select">
+                        <option value="danger">赤（重要向け）</option>
+                        <option value="primary">青（お知らせ向け）</option>
+                        <option value="secondary">グレー（一般向け）</option>
+                        <option value="warning">黄</option>
+                        <option value="info">水色</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">表示順</label>
+                    <input type="number" class="form-control" placeholder="4" min="1">
+                </div>
+                <div class="mb-0">
+                    <label class="form-label small fw-semibold">ステータス</label>
+                    <select class="form-select">
+                        <option>公開</option>
+                        <option>非公開</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">キャンセル</button>
+                <button type="button" class="btn btn-primary">追加する</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- カテゴリ編集モーダル -->
+<div class="modal fade" id="editCategoryModal" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title fw-bold">カテゴリ 編集</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">カテゴリ名 <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" value="重要">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">バッジ色</label>
+                    <select class="form-select">
+                        <option value="danger" selected>赤（重要向け）</option>
+                        <option value="primary">青（お知らせ向け）</option>
+                        <option value="secondary">グレー（一般向け）</option>
+                        <option value="warning">黄</option>
+                        <option value="info">水色</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">表示順</label>
+                    <input type="number" class="form-control" value="1" min="1">
+                </div>
+                <div class="mb-0">
+                    <label class="form-label small fw-semibold">ステータス</label>
+                    <select class="form-select">
+                        <option selected>公開</option>
+                        <option>非公開</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">キャンセル</button>
+                <button type="button" class="btn btn-primary">更新する</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="~{admin/layout/base :: scripts}"></th:block>
+</body>
+</html>

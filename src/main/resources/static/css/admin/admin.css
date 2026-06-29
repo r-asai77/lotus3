@@ -1,0 +1,67 @@
+body { background-color: #f5f7fb; }
+
+.admin-sidebar {
+    width: 240px;
+    min-height: 100vh;
+    background: #1a2332;
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+.admin-sidebar .brand {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: .05em;
+    color: #fff;
+    padding: 1.25rem 1rem;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.admin-sidebar .nav-link {
+    color: rgba(255,255,255,.6);
+    padding: .6rem 1rem;
+    border-radius: 6px;
+    margin: 1px 8px;
+    font-size: .875rem;
+    transition: all .15s;
+}
+.admin-sidebar .nav-link:hover {
+    color: #fff;
+    background: rgba(255,255,255,.08);
+}
+.admin-sidebar .nav-link.active {
+    color: #fff;
+    background: rgba(255,255,255,.15);
+}
+.nav-section-btn {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,.35);
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: .9rem 1rem .25rem;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: color .15s;
+}
+.nav-section-btn:hover { color: rgba(255,255,255,.6); }
+.nav-section-btn .chevron {
+    font-size: .75rem;
+    transition: transform .2s;
+}
+.nav-section-btn.collapsed .chevron { transform: rotate(-90deg); }
+.admin-topbar {
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+    height: 52px;
+}
+.admin-main { min-height: 100vh; }
+.card { border: none; border-radius: 10px; box-shadow: 0 1px 8px rgba(0,0,0,.07); }
+.card-header { border-radius: 10px 10px 0 0 !important; font-weight: 600; }

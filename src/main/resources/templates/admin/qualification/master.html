@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ja">
+<head th:replace="~{admin/layout/base :: head(title='資格マスタ管理', pageStyle='/css/admin/qualification-master.css')}"></head>
+<body class="d-flex" style="min-height:100vh">
+
+<div th:replace="~{admin/layout/base :: sidebar('qualification-master')}"></div>
+
+<div class="admin-main flex-grow-1 d-flex flex-column">
+<div th:replace="~{admin/layout/base :: topbar}"></div>
+
+<main class="p-4 flex-grow-1">
+
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h5 class="fw-bold mb-0">資格マスタ管理</h5>
+            <div class="text-muted small">資格の階層構造を管理します</div>
+        </div>
+        <button type="button" class="btn btn-primary btn-sm"
+                data-bs-toggle="modal" data-bs-target="#addQualMasterModal">
+            <i class="bi bi-plus-circle me-1"></i>新規登録
+        </button>
+    </div>
+
+    <!-- ===== 資格A ===== -->
+    <div class="card mb-4">
+        <div class="card-header bg-white py-2 px-4 d-flex align-items-center gap-2">
+            <span class="badge bg-primary">QUAL-A</span>
+            <span class="fw-semibold">資格A</span>
+            <div class="ms-auto d-flex gap-1">
+                <button class="btn btn-outline-secondary btn-sm"
+                        data-bs-toggle="modal" data-bs-target="#editQualMasterModal">
+                    <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-outline-danger btn-sm" disabled
+                        title="子資格が存在するため削除できません">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 qual-table">
+                <colgroup><col><col><col><col><col></colgroup>
+                <thead class="table-light">
+                    <tr>
+                        <th class="px-4">資格コード / 資格名</th>
+                        <th>有効期間</th>
+                        <th>説明</th>
+                        <th>所持者数</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 資格A 上級（子あり） -->
+                    <tr>
+                        <td style="padding-left:1.5rem;padding-right:1rem">
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="expand-btn collapsed" data-expand-id="A-ADV">
+                                    <i class="bi bi-chevron-down expand-icon text-muted"></i>
+                                </button>
+                                <div>
+                                    <div class="fw-semibold">資格A 上級</div>
+                                    <div class="text-muted" style="font-size:.72rem">QUAL-A-ADV</div>
+                                </div>
+                                <span class="badge bg-light text-muted border">2件</span>
+                            </div>
+                        </td>
+                        <td>3年</td>
+                        <td class="text-muted">高度な専門知識を証明する上級認定</td>
+                        <td><a th:href="@{/admin/users/qualifications}" class="text-decoration-none fw-semibold">124名</a></td>
+                        <td>
+                            <button class="btn btn-outline-secondary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#editQualMasterModal"><i class="bi bi-pencil"></i></button>
+                            <button class="btn btn-outline-danger btn-sm" disabled><i class="bi bi-trash"></i></button>
+                        </td>
+                    </tr>
+                    <!-- └ 資格A 上級 専門（子なし）hidden -->
+                    <tr class="d-none table-light" data-child-of="A-ADV">
+                        <td style="padding-left:3rem;padding-right:1rem">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="no-expand"></span>
+                                <div>
+                                    <div class="fw-semibold">資格A 上級 専門</div>
+                                    <div class="text-muted" style="font-size:.72rem">QUAL-A-ADV-SPC</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>2年</td>
+                        <td class="text-muted">専門分野の深い知識を証明する</td>
+                        <td><a th:href="@{/admin/users/qualifications}" class="text-decoration-none fw-semibold">45名</a></td>
+                        <td>
+                            <button class="btn btn-outline-secondary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#editQualMasterModal"><i class="bi bi-pencil"></i></button>
+                            <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
+                        </td>
+                    </tr>
+                    <!-- └ 資格A 上級 応用（子あり）hidden -->
+                    <tr class="d-none table-light" data-child-of="A-ADV">
+                        <td style="padding-left:3rem;padding-right:1rem">
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="expand-btn collapsed" data-expand-id="A-ADV-APP">
+                                    <i class="bi bi-chevron-down expand-icon text-muted"></i>
+                                </button>
+                                <div>
+                                    <div class="fw-semibold">資格A 上級 応用</div>
+                                    <div class="text-muted" style="font-size:.72rem">QUAL-A-ADV-APP</div>
+                                </div>
+                                <span class="badge bg-light text-muted border">1件</span>
+                            </div>
+                        </td>
+                        <td>2年</td>
+                        <td class="text-muted">応用技術の実践力を証明する</td>
+                        <td><a th:href="@{/admin/users/qualifications}" class="text-decoration-none fw-semibold">79名</a></td>
+                        <td>
+                            <button class="btn btn-outline-secondary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#editQualMasterModal"><i class="bi bi-pencil"></i></button>
+                            <button class="btn btn-outline-danger btn-sm" disabled><i class="bi bi-trash"></i></button>
+                        </td>
+                    </tr>
+                    <!-- └└ 資格A 上級 応用 実践（子なし）hidden -->
+                    <tr class="d-none" data-child-of="A-ADV-APP">
+                        <td style="padding-left:4.5rem;padding-right:1rem">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="no-expand"></span>
+                                <div>
+                                    <div class="fw-semibold">資格A 上級 応用 実践</div>
+                                    <div class="text-muted" style="font-size:.72rem">QUAL-A-ADV-APP-EX</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>1年</td>
+                        <td class="text-muted">実践現場での応用力を証明する</td>
+                        <td><a th:href="@{/admin/users/qualifications}" class="text-decoration-none fw-semibold">12名</a></td>
+                        <td>
+                            <button class="btn btn-outline-secondary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#editQualMasterModal"><i class="bi bi-pencil"></i></button>
+                            <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
+                        </td>
+                    </tr>
+                    <!-- 資格A 中級（子なし） -->
+                    <tr>
+                        <td style="padding-left:1.5rem;padding-right:1rem">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="no-expand"></span>
+                                <div>
+                                    <div class="fw-semibold">資格A 中級</div>
+                                    <div class="text-muted" style="font-size:.72rem">QUAL-A-MID</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>3年</td>
+                        <td class="text-muted">基礎から応用までの知識を証明する中級認定</td>
+                        <td><a th:href="@{/admin/users/qualifications}" class="text-decoration-none fw-semibold">89名</a></td>
+                        <td>
+                            <button class="btn btn-outline-secondary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#editQualMasterModal"><i class="bi bi-pencil"></i></button>
+                            <button class="btn btn-outline-danger btn-sm" disabled><i class="bi bi-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ===== 資格B ===== -->
+    <div class="card mb-4">
+        <div class="card-header bg-white py-2 px-4 d-flex align-items-center gap-2">
+            <span class="badge bg-info text-dark">QUAL-B</span>
+            <span class="fw-semibold">資格B</span>
+            <div class="ms-auto d-flex gap-1">
+                <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#editQualMasterModal"><i class="bi bi-pencil"></i></button>
+                <button class="btn btn-outline-danger btn-sm" disabled><i class="bi bi-trash"></i></button>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 qual-table">
+                <colgroup><col><col><col><col><col></colgroup>
+                <thead class="table-light">
+                    <tr>
+                        <th class="px-4">資格コード / 資格名</th>
+                        <th>有効期間</th>
+                        <th>説明</th>
+                        <th>所持者数</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding-left:1.5rem;padding-right:1rem">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="no-expand"></span>
+                                <div>
+                                    <div class="fw-semibold">資格B 基礎</div>
+                                    <div class="text-muted" style="font-size:.72rem">QUAL-B-BAS</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>3年</td>
+                        <td class="text-muted">入門レベルの知識を証明する基礎認定</td>
+                        <td><a th:href="@{/admin/users/qualifications}" class="text-decoration-none fw-semibold">201名</a></td>
+                        <td>
+                            <button class="btn btn-outline-secondary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#editQualMasterModal"><i class="bi bi-pencil"></i></button>
+                            <button class="btn btn-outline-danger btn-sm" disabled><i class="bi bi-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ===== 資格C ===== -->
+    <div class="card mb-4">
+        <div class="card-header bg-white py-2 px-4 d-flex align-items-center gap-2">
+            <span class="badge bg-warning text-dark">QUAL-C</span>
+            <span class="fw-semibold">資格C</span>
+            <div class="ms-auto d-flex gap-1">
+                <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#editQualMasterModal"><i class="bi bi-pencil"></i></button>
+                <button class="btn btn-outline-danger btn-sm" disabled><i class="bi bi-trash"></i></button>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 qual-table">
+                <colgroup><col><col><col><col><col></colgroup>
+                <thead class="table-light">
+                    <tr>
+                        <th class="px-4">資格コード / 資格名</th>
+                        <th>有効期間</th>
+                        <th>説明</th>
+                        <th>所持者数</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding-left:1.5rem;padding-right:1rem">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="no-expand"></span>
+                                <div>
+                                    <div class="fw-semibold">資格C 専門</div>
+                                    <div class="text-muted" style="font-size:.72rem">QUAL-C-PRO</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>2年</td>
+                        <td class="text-muted">専門分野における高い技術力を証明する</td>
+                        <td><a th:href="@{/admin/users/qualifications}" class="text-decoration-none fw-semibold">67名</a></td>
+                        <td>
+                            <button class="btn btn-outline-secondary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#editQualMasterModal"><i class="bi bi-pencil"></i></button>
+                            <button class="btn btn-outline-danger btn-sm" disabled><i class="bi bi-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ===== 資格D ===== -->
+    <div class="card mb-4">
+        <div class="card-header bg-white py-2 px-4 d-flex align-items-center gap-2">
+            <span class="badge bg-secondary">QUAL-D</span>
+            <span class="fw-semibold">資格D</span>
+            <div class="ms-auto d-flex gap-1">
+                <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#editQualMasterModal"><i class="bi bi-pencil"></i></button>
+                <button class="btn btn-outline-danger btn-sm" disabled><i class="bi bi-trash"></i></button>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 qual-table">
+                <colgroup><col><col><col><col><col></colgroup>
+                <thead class="table-light">
+                    <tr>
+                        <th class="px-4">資格コード / 資格名</th>
+                        <th>有効期間</th>
+                        <th>説明</th>
+                        <th>所持者数</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding-left:1.5rem;padding-right:1rem">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="no-expand"></span>
+                                <div>
+                                    <div class="fw-semibold">資格D 入門</div>
+                                    <div class="text-muted" style="font-size:.72rem">QUAL-D-ENT</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>5年</td>
+                        <td class="text-muted">初学者向けの基礎知識を証明する</td>
+                        <td><a th:href="@{/admin/users/qualifications}" class="text-decoration-none fw-semibold">50名</a></td>
+                        <td>
+                            <button class="btn btn-outline-secondary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#editQualMasterModal"><i class="bi bi-pencil"></i></button>
+                            <button class="btn btn-outline-danger btn-sm" disabled><i class="bi bi-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ===== 資格E ===== -->
+    <div class="card mb-4">
+        <div class="card-header bg-white py-2 px-4 d-flex align-items-center gap-2">
+            <span class="badge bg-light text-dark border">QUAL-E</span>
+            <span class="fw-semibold">資格E</span>
+            <div class="ms-auto d-flex gap-1">
+                <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#editQualMasterModal"><i class="bi bi-pencil"></i></button>
+                <button class="btn btn-outline-danger btn-sm" disabled><i class="bi bi-trash"></i></button>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 qual-table">
+                <colgroup><col><col><col><col><col></colgroup>
+                <thead class="table-light">
+                    <tr>
+                        <th class="px-4">資格コード / 資格名</th>
+                        <th>有効期間</th>
+                        <th>説明</th>
+                        <th>所持者数</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding-left:1.5rem;padding-right:1rem">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="no-expand"></span>
+                                <div>
+                                    <div class="fw-semibold">資格E 試験運用</div>
+                                    <div class="text-muted" style="font-size:.72rem">QUAL-E-NEW</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>1年</td>
+                        <td class="text-muted">新設資格（試験運用中）</td>
+                        <td class="text-muted">0名</td>
+                        <td>
+                            <button class="btn btn-outline-secondary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#editQualMasterModal"><i class="bi bi-pencil"></i></button>
+                            <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</main>
+</div>
+
+<!-- 新規登録モーダル -->
+<div class="modal fade" id="addQualMasterModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title fw-bold">資格マスタ 新規登録</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">親資格</label>
+                    <select class="form-select">
+                        <option value="">なし</option>
+                        <optgroup label="資格A">
+                            <option>資格A</option>
+                            <option>　資格A 上級</option>
+                            <option>　　資格A 上級 応用</option>
+                            <option>　資格A 中級</option>
+                        </optgroup>
+                        <optgroup label="資格B"><option>資格B</option><option>　資格B 基礎</option></optgroup>
+                        <optgroup label="資格C"><option>資格C</option><option>　資格C 専門</option></optgroup>
+                        <optgroup label="資格D"><option>資格D</option><option>　資格D 入門</option></optgroup>
+                        <optgroup label="資格E"><option>資格E</option><option>　資格E 試験運用</option></optgroup>
+                    </select>
+                    <div class="form-text">選択した資格の直下に追加します</div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">資格コード <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" placeholder="例：QUAL-A-BAS">
+                    <div class="form-text">英大文字・数字・ハイフンのみ。一度登録すると変更できません。</div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">資格名 <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" placeholder="例：資格A 基礎">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">有効期間（年）</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control" placeholder="3" min="1" max="99">
+                        <span class="input-group-text">年</span>
+                    </div>
+                    <div class="form-text">空欄の場合は親資格の有効期間を継承します</div>
+                </div>
+                <div class="mb-0">
+                    <label class="form-label small fw-semibold">説明</label>
+                    <textarea class="form-control" rows="2" placeholder="資格の概要を入力してください"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">キャンセル</button>
+                <button type="button" class="btn btn-primary">登録する</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 編集モーダル -->
+<div class="modal fade" id="editQualMasterModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title fw-bold">資格マスタ 編集</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold text-muted">資格コード</label>
+                    <input type="text" class="form-control bg-light" value="QUAL-A-ADV" readonly>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold text-muted">親資格</label>
+                    <input type="text" class="form-control bg-light" value="資格A" readonly>
+                    <div class="form-text">親資格の変更はできません</div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">資格名 <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" value="資格A 上級">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">有効期間（年）</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control" value="3" min="1" max="99">
+                        <span class="input-group-text">年</span>
+                    </div>
+                </div>
+                <div class="mb-0">
+                    <label class="form-label small fw-semibold">説明</label>
+                    <textarea class="form-control" rows="2">高度な専門知識を証明する上級認定</textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">キャンセル</button>
+                <button type="button" class="btn btn-primary">更新する</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="~{admin/layout/base :: scripts}"></th:block>
+<script th:src="@{/js/admin/qualification-master.js}"></script>
+</body>
+</html>

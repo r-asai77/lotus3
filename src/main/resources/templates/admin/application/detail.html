@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ja">
+<head th:replace="~{admin/layout/base :: head(title='申込詳細', pageStyle=null)}"></head>
+<body class="d-flex" style="min-height:100vh">
+
+<div th:replace="~{admin/layout/base :: sidebar('applications')}"></div>
+
+<div class="admin-main flex-grow-1 d-flex flex-column">
+<div th:replace="~{admin/layout/base :: topbar}"></div>
+
+<main class="p-4 flex-grow-1">
+
+    <!-- ページヘッダー -->
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div>
+            <div class="d-flex align-items-center gap-3">
+                <h5 class="fw-bold mb-0">申込詳細</h5>
+                <span class="badge bg-success fs-6 px-3 py-2">完了</span>
+            </div>
+            <div class="text-muted small mt-1">申込番号：<strong class="text-primary">REQ-2026-00042</strong>　申込日時：2026-06-20 14:32</div>
+        </div>
+        <div class="d-flex gap-2">
+            <button class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#changeStatusModal">
+                <i class="bi bi-arrow-repeat me-1"></i>ステータス変更
+            </button>
+            <a th:href="@{/admin/applications}" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-arrow-left me-1"></i>一覧に戻る
+            </a>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-7">
+
+            <!-- 申込セミナー -->
+            <div class="card mb-4">
+                <div class="card-header bg-white fw-semibold py-3">
+                    <i class="bi bi-calendar-check me-2 text-info"></i>申込セミナー日程
+                    <span class="badge bg-light text-dark border ms-2">2件</span>
+                </div>
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item px-4 py-3">
+                        <div class="d-flex align-items-start gap-3">
+                            <span class="badge bg-info text-dark mt-1">セミナー</span>
+                            <div class="flex-grow-1">
+                                <div class="fw-semibold">資格A取得セミナー 応用コース</div>
+                                <div class="small text-muted mt-1">
+                                    <i class="bi bi-calendar me-1"></i>受講期間：2026-07-17 〜 2026-07-17
+                                    <span class="ms-3"><i class="bi bi-geo-alt me-1"></i>大阪会場</span>
+                                </div>
+                                <div class="small text-muted">
+                                    <span class="badge bg-light text-dark border me-1">資格A</span>
+                                </div>
+                            </div>
+                            <span class="badge bg-primary">申込済</span>
+                        </div>
+                    </div>
+                    <div class="list-group-item px-4 py-3">
+                        <div class="d-flex align-items-start gap-3">
+                            <span class="badge bg-success mt-1">オンライン</span>
+                            <div class="flex-grow-1">
+                                <div class="fw-semibold">資格B入門オンラインセミナー</div>
+                                <div class="small text-muted mt-1">
+                                    <i class="bi bi-calendar me-1"></i>配信期間：2026-07-01 〜 2026-07-31
+                                    <span class="ms-3"><i class="bi bi-camera-video me-1"></i>オンライン配信</span>
+                                </div>
+                                <div class="small text-muted">
+                                    <span class="badge bg-light text-dark border me-1">資格B</span>
+                                </div>
+                            </div>
+                            <span class="badge bg-primary">申込済</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 申込者情報 -->
+            <div class="card mb-4">
+                <div class="card-header bg-white fw-semibold py-3">
+                    <i class="bi bi-person-lines-fill me-2 text-primary"></i>申込者情報
+                </div>
+                <div class="card-body px-4 py-3">
+                    <dl class="row small mb-0">
+                        <dt class="col-sm-4 text-muted fw-normal py-1 border-bottom">氏名</dt>
+                        <dd class="col-sm-8 py-1 border-bottom mb-0">山田 太郎</dd>
+                        <dt class="col-sm-4 text-muted fw-normal py-1 border-bottom">メールアドレス</dt>
+                        <dd class="col-sm-8 py-1 border-bottom mb-0">yamada@example.com</dd>
+                        <dt class="col-sm-4 text-muted fw-normal py-1">電話番号</dt>
+                        <dd class="col-sm-8 py-1 mb-0">09012345678</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <!-- 請求先情報 -->
+            <div class="card">
+                <div class="card-header bg-white fw-semibold py-3">
+                    <i class="bi bi-building me-2 text-primary"></i>請求先情報
+                </div>
+                <div class="card-body px-4 py-3">
+                    <dl class="row small mb-0">
+                        <dt class="col-sm-4 text-muted fw-normal py-1 border-bottom">請求先名</dt>
+                        <dd class="col-sm-8 py-1 border-bottom mb-0">株式会社サンプル</dd>
+                        <dt class="col-sm-4 text-muted fw-normal py-1 border-bottom">郵便番号</dt>
+                        <dd class="col-sm-8 py-1 border-bottom mb-0">1000001</dd>
+                        <dt class="col-sm-4 text-muted fw-normal py-1 border-bottom">住所</dt>
+                        <dd class="col-sm-8 py-1 border-bottom mb-0">東京都千代田区千代田1-1</dd>
+                        <dt class="col-sm-4 text-muted fw-normal py-1">担当者名</dt>
+                        <dd class="col-sm-8 py-1 mb-0">山田 太郎</dd>
+                    </dl>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-5">
+
+            <!-- 申込情報サマリ -->
+            <div class="card mb-4">
+                <div class="card-header bg-white fw-semibold py-3">
+                    <i class="bi bi-info-circle me-2 text-secondary"></i>申込情報
+                </div>
+                <div class="card-body px-4 py-3">
+                    <dl class="row small mb-0">
+                        <dt class="col-sm-5 text-muted fw-normal py-1 border-bottom">申込番号</dt>
+                        <dd class="col-sm-7 py-1 border-bottom mb-0 fw-semibold text-primary">REQ-2026-00042</dd>
+                        <dt class="col-sm-5 text-muted fw-normal py-1 border-bottom">申込日時</dt>
+                        <dd class="col-sm-7 py-1 border-bottom mb-0">2026-06-20 14:32</dd>
+                        <dt class="col-sm-5 text-muted fw-normal py-1 border-bottom">ステータス</dt>
+                        <dd class="col-sm-7 py-1 border-bottom mb-0">
+                            <span class="badge bg-success">完了</span>
+                        </dd>
+                        <dt class="col-sm-5 text-muted fw-normal py-1 border-bottom">申込ユーザー</dt>
+                        <dd class="col-sm-7 py-1 border-bottom mb-0">
+                            <a th:href="@{/admin/users/1}" class="text-decoration-none">山田 太郎</a>
+                        </dd>
+                        <dt class="col-sm-5 text-muted fw-normal py-1">申込セミナー数</dt>
+                        <dd class="col-sm-7 py-1 mb-0">2件</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <!-- ステータス履歴 -->
+            <div class="card mb-4">
+                <div class="card-header bg-white fw-semibold py-3">
+                    <i class="bi bi-clock-history me-2 text-secondary"></i>ステータス履歴
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item px-4 py-3">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <span class="badge bg-success me-2">完了</span>
+                                <span class="small">管理者が処理完了に変更</span>
+                            </div>
+                            <span class="small text-muted">2026-06-21 09:00</span>
+                        </div>
+                    </li>
+                    <li class="list-group-item px-4 py-3">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <span class="badge bg-warning text-dark me-2">処理中</span>
+                                <span class="small">管理者が処理開始</span>
+                            </div>
+                            <span class="small text-muted">2026-06-20 16:00</span>
+                        </div>
+                    </li>
+                    <li class="list-group-item px-4 py-3">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <span class="badge bg-primary me-2">受付済</span>
+                                <span class="small">ユーザーが申込完了</span>
+                            </div>
+                            <span class="small text-muted">2026-06-20 14:32</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- メモ -->
+            <div class="card">
+                <div class="card-header bg-white fw-semibold py-3">
+                    <i class="bi bi-sticky me-2 text-warning"></i>管理メモ
+                </div>
+                <div class="card-body px-4 py-3">
+                    <textarea class="form-control form-control-sm" rows="4"
+                              placeholder="内部メモを入力（ユーザーには表示されません）">請求書送付済み。</textarea>
+                    <button class="btn btn-outline-secondary btn-sm mt-2">
+                        <i class="bi bi-save me-1"></i>保存
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</main>
+</div>
+
+<!-- ステータス変更モーダル -->
+<div class="modal fade" id="changeStatusModal" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title fw-bold">ステータス変更</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="small text-muted mb-3">申込番号 <strong>REQ-2026-00042</strong> のステータスを変更します。</p>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-outline-primary btn-sm text-start">
+                        <span class="badge bg-primary me-2">受付済</span>受付済に変更
+                    </button>
+                    <button class="btn btn-outline-warning btn-sm text-start">
+                        <span class="badge bg-warning text-dark me-2">処理中</span>処理中に変更
+                    </button>
+                    <button class="btn btn-outline-success btn-sm text-start">
+                        <span class="badge bg-success me-2">完了</span>完了に変更
+                    </button>
+                    <button class="btn btn-outline-secondary btn-sm text-start">
+                        <span class="badge bg-secondary me-2">キャンセル</span>キャンセルに変更
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">閉じる</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="~{admin/layout/base :: scripts}"></th:block>
+</body>
+</html>

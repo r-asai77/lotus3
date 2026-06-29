@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ja">
+<head th:replace="~{admin/layout/base :: head(title='管理者一覧', pageStyle=null)}"></head>
+<body class="d-flex" style="min-height:100vh">
+
+<div th:replace="~{admin/layout/base :: sidebar('admins')}"></div>
+
+<div class="admin-main flex-grow-1 d-flex flex-column">
+<div th:replace="~{admin/layout/base :: topbar}"></div>
+
+<main class="p-4 flex-grow-1">
+
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h5 class="fw-bold mb-0">管理者一覧</h5>
+            <div class="text-muted small">管理サイトにアクセスできる管理者アカウントを管理します</div>
+        </div>
+        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addAdminModal">
+            <i class="bi bi-plus-circle me-1"></i>管理者追加
+        </button>
+    </div>
+
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 small">
+                <thead class="table-light">
+                    <tr>
+                        <th class="px-4">管理者名</th>
+                        <th>ログインID</th>
+                        <th>メールアドレス</th>
+                        <th style="width:90px">権限</th>
+                        <th style="width:120px">最終ログイン</th>
+                        <th style="width:75px">ステータス</th>
+                        <th style="width:90px">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="px-4 fw-semibold">
+                            <i class="bi bi-shield-fill-check text-warning me-1"></i>システム管理者
+                        </td>
+                        <td>admin</td>
+                        <td>admin@example.com</td>
+                        <td><span class="badge bg-warning text-dark">SUPER</span></td>
+                        <td>2026-06-29 17:20</td>
+                        <td><span class="badge bg-success">有効</span></td>
+                        <td>
+                            <button class="btn btn-outline-secondary btn-sm" disabled>
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 fw-semibold">
+                            <i class="bi bi-shield-fill text-secondary me-1"></i>管理者A
+                        </td>
+                        <td>admin_a</td>
+                        <td>admin_a@example.com</td>
+                        <td><span class="badge bg-secondary">GENERAL</span></td>
+                        <td>2026-06-28 09:45</td>
+                        <td><span class="badge bg-success">有効</span></td>
+                        <td>
+                            <button class="btn btn-outline-secondary btn-sm me-1"
+                                    data-bs-toggle="modal" data-bs-target="#editAdminModal">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-outline-danger btn-sm">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 fw-semibold">
+                            <i class="bi bi-shield-fill text-secondary me-1"></i>管理者B
+                        </td>
+                        <td>admin_b</td>
+                        <td>admin_b@example.com</td>
+                        <td><span class="badge bg-secondary">GENERAL</span></td>
+                        <td>2026-06-25 14:10</td>
+                        <td><span class="badge bg-success">有効</span></td>
+                        <td>
+                            <button class="btn btn-outline-secondary btn-sm me-1"
+                                    data-bs-toggle="modal" data-bs-target="#editAdminModal">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-outline-danger btn-sm">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr class="text-muted">
+                        <td class="px-4 fw-semibold">
+                            <i class="bi bi-shield text-muted me-1"></i>管理者C
+                        </td>
+                        <td>admin_c</td>
+                        <td>admin_c@example.com</td>
+                        <td><span class="badge bg-secondary">GENERAL</span></td>
+                        <td>2026-05-10 11:00</td>
+                        <td><span class="badge bg-danger">無効</span></td>
+                        <td>
+                            <button class="btn btn-outline-secondary btn-sm me-1"
+                                    data-bs-toggle="modal" data-bs-target="#editAdminModal">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-outline-danger btn-sm">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer bg-white py-2 px-4">
+            <span class="small text-muted">全 4 件</span>
+        </div>
+    </div>
+
+</main>
+</div>
+
+<!-- 管理者追加モーダル -->
+<div class="modal fade" id="addAdminModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title fw-bold">管理者 追加</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">管理者名 <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" placeholder="例：管理者D">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">ログインID <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" placeholder="例：admin_d">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">メールアドレス <span class="text-danger">*</span></label>
+                    <input type="email" class="form-control" placeholder="例：admin_d@example.com">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">初期パスワード <span class="text-danger">*</span></label>
+                    <input type="password" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">権限 <span class="text-danger">*</span></label>
+                    <select class="form-select">
+                        <option value="GENERAL">GENERAL（一般管理者）</option>
+                        <option value="SUPER">SUPER（スーパー管理者）</option>
+                    </select>
+                    <div class="form-text">SUPER：全機能にアクセス可能 / GENERAL：権限設定に基づく</div>
+                </div>
+                <div class="mb-0">
+                    <label class="form-label small fw-semibold">ステータス</label>
+                    <select class="form-select">
+                        <option>有効</option>
+                        <option>無効</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">キャンセル</button>
+                <button type="button" class="btn btn-primary">追加する</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 管理者編集モーダル -->
+<div class="modal fade" id="editAdminModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title fw-bold">管理者 編集</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">管理者名 <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" value="管理者A">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">ログインID <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" value="admin_a">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">メールアドレス <span class="text-danger">*</span></label>
+                    <input type="email" class="form-control" value="admin_a@example.com">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">パスワード変更</label>
+                    <input type="password" class="form-control" placeholder="変更する場合のみ入力">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">権限 <span class="text-danger">*</span></label>
+                    <select class="form-select">
+                        <option value="GENERAL" selected>GENERAL（一般管理者）</option>
+                        <option value="SUPER">SUPER（スーパー管理者）</option>
+                    </select>
+                </div>
+                <div class="mb-0">
+                    <label class="form-label small fw-semibold">ステータス</label>
+                    <select class="form-select">
+                        <option selected>有効</option>
+                        <option>無効</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">キャンセル</button>
+                <button type="button" class="btn btn-primary">更新する</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="~{admin/layout/base :: scripts}"></th:block>
+</body>
+</html>

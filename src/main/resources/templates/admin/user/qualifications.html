@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ja">
+<head th:replace="~{admin/layout/base :: head(title='資格一覧', pageStyle=null)}"></head>
+<body class="d-flex" style="min-height:100vh">
+
+<div th:replace="~{admin/layout/base :: sidebar('user-qualifications')}"></div>
+
+<div class="admin-main flex-grow-1 d-flex flex-column">
+<div th:replace="~{admin/layout/base :: topbar}"></div>
+
+<main class="p-4 flex-grow-1">
+
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h5 class="fw-bold mb-0">資格一覧</h5>
+            <div class="text-muted small">全ユーザーの所持資格 531 件</div>
+        </div>
+    </div>
+
+    <!-- フィルター -->
+    <div class="card mb-4">
+        <div class="card-body p-3">
+            <div class="row g-2 align-items-end">
+                <div class="col-md-3">
+                    <label class="form-label small fw-semibold mb-1">ユーザー名</label>
+                    <input type="text" class="form-control form-control-sm" placeholder="氏名またはログインIDで検索">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label small fw-semibold mb-1">資格名</label>
+                    <select class="form-select form-select-sm">
+                        <option value="">すべて</option>
+                        <option>資格A 上級</option>
+                        <option>資格A 中級</option>
+                        <option>資格B 基礎</option>
+                        <option>資格C 専門</option>
+                        <option>資格D 入門</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label small fw-semibold mb-1">ステータス</label>
+                    <select class="form-select form-select-sm">
+                        <option value="">すべて</option>
+                        <option>有効</option>
+                        <option>期限注意（90日以内）</option>
+                        <option>期限切れ</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label small fw-semibold mb-1">有効期限</label>
+                    <input type="date" class="form-control form-control-sm">
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary btn-sm w-100">
+                        <i class="bi bi-search me-1"></i>検索
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 一覧テーブル -->
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 small">
+                <thead class="table-light">
+                    <tr>
+                        <th class="px-4">ユーザー名</th>
+                        <th>ログインID</th>
+                        <th>資格名</th>
+                        <th>取得日</th>
+                        <th>有効期限</th>
+                        <th>ステータス</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="px-4 fw-semibold">山田 太郎</td>
+                        <td class="text-muted">yamada_taro</td>
+                        <td>資格A 上級</td>
+                        <td>2024-03-15</td>
+                        <td>2027-03-14</td>
+                        <td><span class="badge bg-success">有効</span></td>
+                        <td>
+                            <a th:href="@{/admin/users/1}" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-person me-1"></i>ユーザー詳細
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 fw-semibold">山田 太郎</td>
+                        <td class="text-muted">yamada_taro</td>
+                        <td>資格B 基礎</td>
+                        <td>2025-06-01</td>
+                        <td>2028-05-31</td>
+                        <td><span class="badge bg-success">有効</span></td>
+                        <td>
+                            <a th:href="@{/admin/users/1}" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-person me-1"></i>ユーザー詳細
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 fw-semibold">佐藤 花子</td>
+                        <td class="text-muted">sato_hanako</td>
+                        <td>資格A 上級</td>
+                        <td>2023-08-20</td>
+                        <td>2026-08-19</td>
+                        <td><span class="badge bg-warning text-dark">期限注意</span></td>
+                        <td>
+                            <a th:href="@{/admin/users/2}" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-person me-1"></i>ユーザー詳細
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 fw-semibold">田中 美咲</td>
+                        <td class="text-muted">tanaka_misaki</td>
+                        <td>資格A 上級</td>
+                        <td>2022-11-10</td>
+                        <td>2025-11-09</td>
+                        <td><span class="badge bg-secondary">期限切れ</span></td>
+                        <td>
+                            <a th:href="@{/admin/users/4}" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-person me-1"></i>ユーザー詳細
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 fw-semibold">田中 美咲</td>
+                        <td class="text-muted">tanaka_misaki</td>
+                        <td>資格B 基礎</td>
+                        <td>2024-07-01</td>
+                        <td>2027-06-30</td>
+                        <td><span class="badge bg-success">有効</span></td>
+                        <td>
+                            <a th:href="@{/admin/users/4}" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-person me-1"></i>ユーザー詳細
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 fw-semibold">田中 美咲</td>
+                        <td class="text-muted">tanaka_misaki</td>
+                        <td>資格C 専門</td>
+                        <td>2025-03-05</td>
+                        <td>2028-03-04</td>
+                        <td><span class="badge bg-success">有効</span></td>
+                        <td>
+                            <a th:href="@{/admin/users/4}" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-person me-1"></i>ユーザー詳細
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 fw-semibold">中村 陽介</td>
+                        <td class="text-muted">nakamura_yosuke</td>
+                        <td>資格A 上級</td>
+                        <td>2025-09-12</td>
+                        <td>2028-09-11</td>
+                        <td><span class="badge bg-success">有効</span></td>
+                        <td>
+                            <a th:href="@{/admin/users/7}" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-person me-1"></i>ユーザー詳細
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer bg-white d-flex align-items-center justify-content-between py-2 px-4">
+            <div class="small text-muted">1〜7 件 / 全 531 件</div>
+            <nav>
+                <ul class="pagination pagination-sm mb-0">
+                    <li class="page-item disabled"><a class="page-link">前へ</a></li>
+                    <li class="page-item active"><a class="page-link">1</a></li>
+                    <li class="page-item"><a class="page-link">2</a></li>
+                    <li class="page-item"><a class="page-link">3</a></li>
+                    <li class="page-item"><a class="page-link">…</a></li>
+                    <li class="page-item"><a class="page-link">次へ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+</main>
+</div>
+
+<th:block th:replace="~{admin/layout/base :: scripts}"></th:block>
+</body>
+</html>

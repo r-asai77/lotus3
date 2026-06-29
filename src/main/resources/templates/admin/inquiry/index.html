@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ja">
+<head th:replace="~{admin/layout/base :: head(title='問い合わせ一覧', pageStyle=null)}"></head>
+<body class="d-flex" style="min-height:100vh">
+
+<div th:replace="~{admin/layout/base :: sidebar('inquiries')}"></div>
+
+<div class="admin-main flex-grow-1 d-flex flex-column">
+<div th:replace="~{admin/layout/base :: topbar}"></div>
+
+<main class="p-4 flex-grow-1">
+
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h5 class="fw-bold mb-0">問い合わせ一覧</h5>
+            <div class="text-muted small">全 24 件</div>
+        </div>
+        <a th:href="@{/admin/inquiries/checklist}" class="btn btn-outline-primary btn-sm">
+            <i class="bi bi-check2-square me-1"></i>チェックリスト
+        </a>
+    </div>
+
+    <!-- フィルター -->
+    <div class="card mb-4">
+        <div class="card-body p-3">
+            <div class="row g-2 align-items-end">
+                <div class="col-md-3">
+                    <label class="form-label small fw-semibold mb-1">ステータス</label>
+                    <select class="form-select form-select-sm">
+                        <option value="">すべて</option>
+                        <option>未対応</option>
+                        <option>対応中</option>
+                        <option>回答済</option>
+                        <option>クローズ</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label small fw-semibold mb-1">カテゴリ</label>
+                    <select class="form-select form-select-sm">
+                        <option value="">すべて</option>
+                        <option>セミナーについて</option>
+                        <option>資格について</option>
+                        <option>請求・支払いについて</option>
+                        <option>アカウントについて</option>
+                        <option>その他</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label small fw-semibold mb-1">受付日（開始）</label>
+                    <input type="date" class="form-control form-control-sm">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label small fw-semibold mb-1">受付日（終了）</label>
+                    <input type="date" class="form-control form-control-sm">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label small fw-semibold mb-1">キーワード</label>
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="件名・ユーザー名">
+                        <button class="btn btn-primary"><i class="bi bi-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 一覧テーブル -->
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light small">
+                    <tr>
+                        <th class="px-4">No</th>
+                        <th>カテゴリ</th>
+                        <th>件名</th>
+                        <th>ユーザー名</th>
+                        <th>受付日時</th>
+                        <th>ステータス</th>
+                        <th>担当者</th>
+                    </tr>
+                </thead>
+                <tbody class="small">
+                    <tr class="cursor-pointer" style="cursor:pointer" onclick="location.href='/admin/inquiries/1'">
+                        <td class="px-4 text-muted">1024</td>
+                        <td><span class="badge bg-light text-dark border">セミナーについて</span></td>
+                        <td class="fw-semibold">セミナー申込内容の変更について</td>
+                        <td>山田 太郎</td>
+                        <td class="text-muted">2026-06-27 14:32</td>
+                        <td><span class="badge bg-danger">未対応</span></td>
+                        <td class="text-muted">-</td>
+                    </tr>
+                    <tr style="cursor:pointer" onclick="location.href='/admin/inquiries/2'">
+                        <td class="px-4 text-muted">1023</td>
+                        <td><span class="badge bg-light text-dark border">資格について</span></td>
+                        <td class="fw-semibold">資格証明書の再発行依頼</td>
+                        <td>佐藤 花子</td>
+                        <td class="text-muted">2026-06-26 10:15</td>
+                        <td><span class="badge bg-danger">未対応</span></td>
+                        <td class="text-muted">-</td>
+                    </tr>
+                    <tr style="cursor:pointer" onclick="location.href='/admin/inquiries/3'">
+                        <td class="px-4 text-muted">1022</td>
+                        <td><span class="badge bg-light text-dark border">アカウントについて</span></td>
+                        <td class="fw-semibold">ログインできなくなった</td>
+                        <td>鈴木 一郎</td>
+                        <td class="text-muted">2026-06-25 09:44</td>
+                        <td><span class="badge bg-warning text-dark">対応中</span></td>
+                        <td>田中 管理者</td>
+                    </tr>
+                    <tr style="cursor:pointer" onclick="location.href='/admin/inquiries/4'">
+                        <td class="px-4 text-muted">1021</td>
+                        <td><span class="badge bg-light text-dark border">請求・支払いについて</span></td>
+                        <td class="fw-semibold">領収書の発行をお願いしたい</td>
+                        <td>田中 美咲</td>
+                        <td class="text-muted">2026-06-24 16:20</td>
+                        <td><span class="badge bg-info text-dark">回答済</span></td>
+                        <td>山本 管理者</td>
+                    </tr>
+                    <tr style="cursor:pointer" onclick="location.href='/admin/inquiries/5'">
+                        <td class="px-4 text-muted">1020</td>
+                        <td><span class="badge bg-light text-dark border">セミナーについて</span></td>
+                        <td class="fw-semibold">キャンセル期限について確認したい</td>
+                        <td>伊藤 健太</td>
+                        <td class="text-muted">2026-06-23 11:05</td>
+                        <td><span class="badge bg-info text-dark">回答済</span></td>
+                        <td>田中 管理者</td>
+                    </tr>
+                    <tr style="cursor:pointer" onclick="location.href='/admin/inquiries/6'">
+                        <td class="px-4 text-muted">1019</td>
+                        <td><span class="badge bg-light text-dark border">その他</span></td>
+                        <td class="fw-semibold">パスワードを忘れてしまいました</td>
+                        <td>渡辺 里奈</td>
+                        <td class="text-muted">2026-06-22 13:48</td>
+                        <td><span class="badge bg-secondary">クローズ</span></td>
+                        <td>山本 管理者</td>
+                    </tr>
+                    <tr style="cursor:pointer" onclick="location.href='/admin/inquiries/7'">
+                        <td class="px-4 text-muted">1018</td>
+                        <td><span class="badge bg-light text-dark border">資格について</span></td>
+                        <td class="fw-semibold">資格の有効期限延長は可能ですか</td>
+                        <td>中村 陽介</td>
+                        <td class="text-muted">2026-06-20 08:30</td>
+                        <td><span class="badge bg-secondary">クローズ</span></td>
+                        <td>田中 管理者</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ページネーション -->
+        <div class="card-footer bg-white d-flex align-items-center justify-content-between py-2 px-4">
+            <div class="small text-muted">1〜7 件 / 全 24 件</div>
+            <nav>
+                <ul class="pagination pagination-sm mb-0">
+                    <li class="page-item disabled"><a class="page-link">前へ</a></li>
+                    <li class="page-item active"><a class="page-link">1</a></li>
+                    <li class="page-item"><a class="page-link">2</a></li>
+                    <li class="page-item"><a class="page-link">3</a></li>
+                    <li class="page-item"><a class="page-link">次へ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+</main>
+</div>
+
+<th:block th:replace="~{admin/layout/base :: scripts}"></th:block>
+</body>
+</html>

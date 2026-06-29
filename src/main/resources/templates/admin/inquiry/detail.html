@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ja">
+<head th:replace="~{admin/layout/base :: head(title='問い合わせ詳細', pageStyle=null)}"></head>
+<body class="d-flex" style="min-height:100vh">
+
+<div th:replace="~{admin/layout/base :: sidebar('inquiries')}"></div>
+
+<div class="admin-main flex-grow-1 d-flex flex-column">
+<div th:replace="~{admin/layout/base :: topbar}"></div>
+
+<main class="p-4 flex-grow-1">
+
+    <!-- ページヘッダー -->
+    <div class="d-flex align-items-center gap-3 mb-4">
+        <a th:href="@{/admin/inquiries}" class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-arrow-left me-1"></i>一覧へ戻る
+        </a>
+        <div>
+            <h5 class="fw-bold mb-0">問い合わせ詳細</h5>
+            <div class="text-muted small">No.1024</div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- メインエリア（スレッド） -->
+        <div class="col-lg-8">
+
+            <!-- 問い合わせ内容ヘッダー -->
+            <div class="card mb-4">
+                <div class="card-body px-4 py-3">
+                    <div class="d-flex align-items-start justify-content-between gap-3">
+                        <div>
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <span class="badge bg-danger">未対応</span>
+                                <span class="badge bg-light text-dark border small">セミナーについて</span>
+                            </div>
+                            <h6 class="fw-bold mb-1">セミナー申込内容の変更について</h6>
+                            <div class="small text-muted">
+                                <i class="bi bi-person me-1"></i>山田 太郎
+                                <span class="mx-2">·</span>
+                                <i class="bi bi-clock me-1"></i>2026-06-27 14:32 受付
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- スレッド -->
+            <div class="mb-4">
+
+                <!-- ユーザーメッセージ -->
+                <div class="d-flex justify-content-end mb-3">
+                    <div style="max-width:80%">
+                        <div class="d-flex align-items-center justify-content-end gap-2 mb-1">
+                            <span class="small text-muted">2026-06-27 14:32</span>
+                            <span class="small fw-semibold">山田 太郎</span>
+                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
+                                 style="width:28px;height:28px;font-size:.75rem">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                        </div>
+                        <div class="rounded-3 p-3 small" style="background:#dbeafe">
+                            先日申し込んだセミナー（資格A取得セミナー 応用コース / 7月17日 大阪会場）について、
+                            日程を変更したいのですがどうすればよいでしょうか。<br>
+                            別の日程（7月22日 東京会場）に変更できればと思っています。よろしくお願いします。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 管理者メッセージ -->
+                <div class="d-flex justify-content-start mb-3">
+                    <div style="max-width:80%">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center"
+                                 style="width:28px;height:28px;font-size:.75rem">
+                                <i class="bi bi-shield-fill"></i>
+                            </div>
+                            <span class="small fw-semibold">田中 管理者</span>
+                            <span class="small text-muted">2026-06-27 15:10</span>
+                        </div>
+                        <div class="rounded-3 p-3 small" style="background:#f3f4f6">
+                            お問い合わせいただきありがとうございます。<br>
+                            7月22日 東京会場への日程変更を承りました。現在確認中ですので、
+                            本日中にご連絡差し上げます。少々お待ちください。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ユーザーメッセージ2 -->
+                <div class="d-flex justify-content-end mb-3">
+                    <div style="max-width:80%">
+                        <div class="d-flex align-items-center justify-content-end gap-2 mb-1">
+                            <span class="small text-muted">2026-06-27 15:45</span>
+                            <span class="small fw-semibold">山田 太郎</span>
+                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
+                                 style="width:28px;height:28px;font-size:.75rem">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                        </div>
+                        <div class="rounded-3 p-3 small" style="background:#dbeafe">
+                            ご確認いただきありがとうございます。よろしくお願いいたします。
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 返信フォーム -->
+            <div class="card">
+                <div class="card-header bg-white py-3">
+                    <i class="bi bi-reply-fill me-2 text-primary"></i>返信を送信
+                </div>
+                <div class="card-body p-4">
+                    <textarea class="form-control mb-3" rows="5"
+                              placeholder="返信内容を入力してください"></textarea>
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-primary px-4">
+                            <i class="bi bi-send me-1"></i>送信する
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary">
+                            下書き保存
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- サイドパネル（管理情報） -->
+        <div class="col-lg-4">
+
+            <!-- ステータス・担当者 -->
+            <div class="card mb-3">
+                <div class="card-header bg-white py-3">
+                    <i class="bi bi-sliders me-2 text-secondary"></i>対応情報
+                </div>
+                <div class="card-body px-4 py-3">
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold text-muted">ステータス</label>
+                        <select class="form-select form-select-sm">
+                            <option>未対応</option>
+                            <option selected>対応中</option>
+                            <option>回答済</option>
+                            <option>クローズ</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold text-muted">担当者</label>
+                        <select class="form-select form-select-sm">
+                            <option value="">未割当</option>
+                            <option selected>田中 管理者</option>
+                            <option>山本 管理者</option>
+                            <option>鈴木 管理者</option>
+                        </select>
+                    </div>
+                    <div class="mb-0">
+                        <label class="form-label small fw-semibold text-muted">対応期限</label>
+                        <input type="date" class="form-control form-control-sm" value="2026-06-30">
+                    </div>
+                </div>
+                <div class="card-footer bg-white py-2 px-4">
+                    <button type="button" class="btn btn-sm btn-primary w-100">
+                        <i class="bi bi-check me-1"></i>対応情報を更新する
+                    </button>
+                </div>
+            </div>
+
+            <!-- 申込者情報 -->
+            <div class="card mb-3">
+                <div class="card-header bg-white py-3">
+                    <i class="bi bi-person-fill me-2 text-secondary"></i>申込者情報
+                </div>
+                <div class="card-body px-4 py-3">
+                    <dl class="row mb-0 small">
+                        <dt class="col-5 text-muted fw-normal">氏名</dt>
+                        <dd class="col-7">山田 太郎</dd>
+                        <dt class="col-5 text-muted fw-normal">ログインID</dt>
+                        <dd class="col-7">yamada_taro</dd>
+                        <dt class="col-5 text-muted fw-normal">メール</dt>
+                        <dd class="col-7" style="word-break:break-all">yamada@example.com</dd>
+                        <dt class="col-5 text-muted fw-normal mb-0">電話番号</dt>
+                        <dd class="col-7 mb-0">09012345678</dd>
+                    </dl>
+                </div>
+                <div class="card-footer bg-white py-2 px-4">
+                    <a th:href="@{/admin/users/1}" class="btn btn-sm btn-outline-secondary w-100">
+                        ユーザー詳細を見る
+                    </a>
+                </div>
+            </div>
+
+            <!-- 内部メモ -->
+            <div class="card">
+                <div class="card-header bg-white py-3">
+                    <i class="bi bi-sticky-fill me-2 text-warning"></i>内部メモ
+                    <span class="badge bg-warning text-dark ms-1 small">管理者のみ表示</span>
+                </div>
+                <div class="card-body px-4 py-3">
+                    <textarea class="form-control form-control-sm mb-2" rows="3"
+                              placeholder="ユーザーには表示されないメモを記載できます">申込番号REQ-2026-00038の日程変更依頼。システム上での変更後、メールで確認連絡を行う。</textarea>
+                    <button type="button" class="btn btn-sm btn-outline-warning w-100">
+                        <i class="bi bi-save me-1"></i>メモを保存
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</main>
+</div>
+
+<th:block th:replace="~{admin/layout/base :: scripts}"></th:block>
+</body>
+</html>

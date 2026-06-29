@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="ja">
+<head th:replace="~{admin/layout/base :: head(title='FAQマスタ管理', pageStyle=null)}"></head>
+<body class="d-flex" style="min-height:100vh">
+
+<div th:replace="~{admin/layout/base :: sidebar('faq-master')}"></div>
+
+<div class="admin-main flex-grow-1 d-flex flex-column">
+<div th:replace="~{admin/layout/base :: topbar}"></div>
+
+<main class="p-4 flex-grow-1">
+
+    <div class="mb-4">
+        <h5 class="fw-bold mb-0">FAQマスタ管理</h5>
+        <div class="text-muted small">ケースおよびカテゴリのマスタを管理します（ユーザーサイトの絞り込み条件に使用）</div>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- ケースマスタ -->
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header bg-white py-2 px-4 d-flex align-items-center justify-content-between">
+                    <span class="fw-semibold">
+                        <i class="bi bi-collection me-2 text-primary"></i>ケースマスタ
+                    </span>
+                    <button class="btn btn-primary btn-sm"
+                            data-bs-toggle="modal" data-bs-target="#addCaseModal">
+                        <i class="bi bi-plus-circle me-1"></i>追加
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0 small">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="px-4" style="width:40px">順</th>
+                                <th>ケース名</th>
+                                <th style="width:60px">件数</th>
+                                <th style="width:75px">ステータス</th>
+                                <th style="width:80px">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="px-4 text-muted text-center">1</td>
+                                <td class="fw-semibold">ログインできない場合</td>
+                                <td class="text-center">1</td>
+                                <td><span class="badge bg-success">公開</span></td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm me-1"
+                                            data-bs-toggle="modal" data-bs-target="#editCaseModal">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger btn-sm" disabled>
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 text-muted text-center">2</td>
+                                <td class="fw-semibold">セミナー申込について</td>
+                                <td class="text-center">2</td>
+                                <td><span class="badge bg-success">公開</span></td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm me-1"
+                                            data-bs-toggle="modal" data-bs-target="#editCaseModal">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger btn-sm" disabled>
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 text-muted text-center">3</td>
+                                <td class="fw-semibold">資格・認定について</td>
+                                <td class="text-center">1</td>
+                                <td><span class="badge bg-success">公開</span></td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm me-1"
+                                            data-bs-toggle="modal" data-bs-target="#editCaseModal">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger btn-sm" disabled>
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 text-muted text-center">4</td>
+                                <td class="fw-semibold">パスワードを忘れた場合</td>
+                                <td class="text-center">1</td>
+                                <td><span class="badge bg-success">公開</span></td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm me-1"
+                                            data-bs-toggle="modal" data-bs-target="#editCaseModal">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger btn-sm" disabled>
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 text-muted text-center">5</td>
+                                <td class="fw-semibold">その他</td>
+                                <td class="text-center">0</td>
+                                <td><span class="badge bg-success">公開</span></td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm me-1"
+                                            data-bs-toggle="modal" data-bs-target="#editCaseModal">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger btn-sm">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- カテゴリマスタ -->
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header bg-white py-2 px-4 d-flex align-items-center justify-content-between">
+                    <span class="fw-semibold">
+                        <i class="bi bi-tag me-2 text-success"></i>カテゴリマスタ
+                    </span>
+                    <button class="btn btn-primary btn-sm"
+                            data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+                        <i class="bi bi-plus-circle me-1"></i>追加
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0 small">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="px-4" style="width:40px">順</th>
+                                <th>カテゴリ名</th>
+                                <th style="width:60px">件数</th>
+                                <th style="width:75px">ステータス</th>
+                                <th style="width:80px">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="px-4 text-muted text-center">1</td>
+                                <td class="fw-semibold">操作方法</td>
+                                <td class="text-center">2</td>
+                                <td><span class="badge bg-success">公開</span></td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm me-1"
+                                            data-bs-toggle="modal" data-bs-target="#editCategoryModal">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger btn-sm" disabled>
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 text-muted text-center">2</td>
+                                <td class="fw-semibold">セミナー</td>
+                                <td class="text-center">2</td>
+                                <td><span class="badge bg-success">公開</span></td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm me-1"
+                                            data-bs-toggle="modal" data-bs-target="#editCategoryModal">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger btn-sm" disabled>
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 text-muted text-center">3</td>
+                                <td class="fw-semibold">資格・認定</td>
+                                <td class="text-center">1</td>
+                                <td><span class="badge bg-success">公開</span></td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm me-1"
+                                            data-bs-toggle="modal" data-bs-target="#editCategoryModal">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger btn-sm" disabled>
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 text-muted text-center">4</td>
+                                <td class="fw-semibold">その他</td>
+                                <td class="text-center">0</td>
+                                <td><span class="badge bg-success">公開</span></td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm me-1"
+                                            data-bs-toggle="modal" data-bs-target="#editCategoryModal">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger btn-sm">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</main>
+</div>
+
+<!-- ケース追加モーダル -->
+<div class="modal fade" id="addCaseModal" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title fw-bold">ケース 追加</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">ケース名 <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" placeholder="例：料金・支払いについて">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">表示順</label>
+                    <input type="number" class="form-control" placeholder="6" min="1">
+                </div>
+                <div class="mb-0">
+                    <label class="form-label small fw-semibold">ステータス</label>
+                    <select class="form-select">
+                        <option>公開</option>
+                        <option>非公開</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">キャンセル</button>
+                <button type="button" class="btn btn-primary">追加する</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ケース編集モーダル -->
+<div class="modal fade" id="editCaseModal" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title fw-bold">ケース 編集</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">ケース名 <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" value="ログインできない場合">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">表示順</label>
+                    <input type="number" class="form-control" value="1" min="1">
+                </div>
+                <div class="mb-0">
+                    <label class="form-label small fw-semibold">ステータス</label>
+                    <select class="form-select">
+                        <option selected>公開</option>
+                        <option>非公開</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">キャンセル</button>
+                <button type="button" class="btn btn-primary">更新する</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- カテゴリ追加モーダル -->
+<div class="modal fade" id="addCategoryModal" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title fw-bold">カテゴリ 追加</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">カテゴリ名 <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" placeholder="例：アカウント">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">表示順</label>
+                    <input type="number" class="form-control" placeholder="5" min="1">
+                </div>
+                <div class="mb-0">
+                    <label class="form-label small fw-semibold">ステータス</label>
+                    <select class="form-select">
+                        <option>公開</option>
+                        <option>非公開</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">キャンセル</button>
+                <button type="button" class="btn btn-primary">追加する</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- カテゴリ編集モーダル -->
+<div class="modal fade" id="editCategoryModal" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title fw-bold">カテゴリ 編集</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">カテゴリ名 <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" value="操作方法">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label small fw-semibold">表示順</label>
+                    <input type="number" class="form-control" value="1" min="1">
+                </div>
+                <div class="mb-0">
+                    <label class="form-label small fw-semibold">ステータス</label>
+                    <select class="form-select">
+                        <option selected>公開</option>
+                        <option>非公開</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">キャンセル</button>
+                <button type="button" class="btn btn-primary">更新する</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="~{admin/layout/base :: scripts}"></th:block>
+</body>
+</html>
