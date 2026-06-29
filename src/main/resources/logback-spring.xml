@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="LOG_BASE" value="logs"/>
+    <property name="PAT_ALL"     value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %-50logger{50} | %msg%n"/>
+    <property name="PAT_ERROR"   value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %-50logger{50} | %msg%n%xEx{full}"/>
+    <property name="PAT_CONSOLE" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
+
+    <!-- ================================================================
+         ADMIN サブパッケージ別 appender（all + error）
+         各フォルダ：logs/admin/{subpackage}/admin-{name}-YYYY-MM-DD.log
+                                             admin-{name}-error-YYYY-MM-DD.log
+    ================================================================ -->
+
+    <appender name="ADMIN_AUTH" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/admin/auth/admin-auth-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ALL}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+    <appender name="ADMIN_AUTH_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/admin/auth/admin-auth-error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ERROR}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+
+    <appender name="ADMIN_DASHBOARD" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/admin/dashboard/admin-dashboard-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ALL}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+    <appender name="ADMIN_DASHBOARD_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/admin/dashboard/admin-dashboard-error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ERROR}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+
+    <appender name="ADMIN_CONFIG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/admin/config/admin-config-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ALL}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+    <appender name="ADMIN_CONFIG_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/admin/config/admin-config-error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ERROR}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+
+    <appender name="ADMIN_INQUIRY" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/admin/inquiry/admin-inquiry-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ALL}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+    <appender name="ADMIN_INQUIRY_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/admin/inquiry/admin-inquiry-error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ERROR}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+
+    <appender name="ADMIN_USER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/admin/user/admin-user-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ALL}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+    <appender name="ADMIN_USER_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/admin/user/admin-user-error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ERROR}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+
+    <appender name="ADMIN_QUALIFICATION" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/admin/qualification/admin-qualification-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ALL}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+    <appender name="ADMIN_QUALIFICATION_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/admin/qualification/admin-qualification-error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ERROR}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+
+    <appender name="ADMIN_SEMINAR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/admin/seminar/admin-seminar-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ALL}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+    <appender name="ADMIN_SEMINAR_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/admin/seminar/admin-seminar-error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ERROR}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+
+    <appender name="ADMIN_APPLICATION" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/admin/application/admin-application-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ALL}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+    <appender name="ADMIN_APPLICATION_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/admin/application/admin-application-error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ERROR}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+
+    <appender name="ADMIN_FAQ" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/admin/faq/admin-faq-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ALL}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+    <appender name="ADMIN_FAQ_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/admin/faq/admin-faq-error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ERROR}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+
+    <appender name="ADMIN_FILTER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/admin/filter/admin-filter-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ALL}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+    <appender name="ADMIN_FILTER_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/admin/filter/admin-filter-error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ERROR}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+
+    <!-- ================================================================
+         USER サブパッケージ別 appender（all + error）
+    ================================================================ -->
+
+    <appender name="USER_AUTH" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/user/auth/user-auth-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ALL}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+    <appender name="USER_AUTH_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/user/auth/user-auth-error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ERROR}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+
+    <appender name="USER_TOP" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/user/top/user-top-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ALL}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+    <appender name="USER_TOP_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/user/top/user-top-error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ERROR}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+
+    <appender name="USER_INFORMATION" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/user/information/user-information-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ALL}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+    <appender name="USER_INFORMATION_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/user/information/user-information-error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ERROR}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+
+    <appender name="USER_FAQ" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/user/faq/user-faq-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ALL}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+    <appender name="USER_FAQ_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/user/faq/user-faq-error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ERROR}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+
+    <appender name="USER_INQUIRY" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/user/inquiry/user-inquiry-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ALL}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+    <appender name="USER_INQUIRY_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/user/inquiry/user-inquiry-error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ERROR}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+
+    <appender name="USER_SEMINAR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/user/seminar/user-seminar-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ALL}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+    <appender name="USER_SEMINAR_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/user/seminar/user-seminar-error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ERROR}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+
+    <appender name="USER_ACCOUNT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/user/account/user-account-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ALL}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+    <appender name="USER_ACCOUNT_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/user/account/user-account-error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ERROR}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+
+    <appender name="USER_PROFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/user/profile/user-profile-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ALL}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+    <appender name="USER_PROFILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/user/profile/user-profile-error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ERROR}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+
+    <appender name="USER_FILTER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/user/filter/user-filter-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ALL}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+    <appender name="USER_FILTER_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/user/filter/user-filter-error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ERROR}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+
+    <appender name="USER_CONFIG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/user/config/user-config-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ALL}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+    <appender name="USER_CONFIG_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter"><level>ERROR</level></filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_BASE}/user/config/user-config-error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder><pattern>${PAT_ERROR}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+
+    <!-- ================================================================
+         CONSOLE
+    ================================================================ -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder><pattern>${PAT_CONSOLE}</pattern><charset>UTF-8</charset></encoder>
+    </appender>
+
+    <!-- ================================================================
+         LOGGER : admin サブパッケージ別
+    ================================================================ -->
+
+    <logger name="com.app.lotus.admin.auth" level="INFO" additivity="false">
+        <appender-ref ref="ADMIN_AUTH"/>
+        <appender-ref ref="ADMIN_AUTH_ERROR"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="com.app.lotus.admin.dashboard" level="INFO" additivity="false">
+        <appender-ref ref="ADMIN_DASHBOARD"/>
+        <appender-ref ref="ADMIN_DASHBOARD_ERROR"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="com.app.lotus.admin.config" level="INFO" additivity="false">
+        <appender-ref ref="ADMIN_CONFIG"/>
+        <appender-ref ref="ADMIN_CONFIG_ERROR"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="com.app.lotus.admin.inquiry" level="INFO" additivity="false">
+        <appender-ref ref="ADMIN_INQUIRY"/>
+        <appender-ref ref="ADMIN_INQUIRY_ERROR"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="com.app.lotus.admin.user" level="INFO" additivity="false">
+        <appender-ref ref="ADMIN_USER"/>
+        <appender-ref ref="ADMIN_USER_ERROR"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="com.app.lotus.admin.qualification" level="INFO" additivity="false">
+        <appender-ref ref="ADMIN_QUALIFICATION"/>
+        <appender-ref ref="ADMIN_QUALIFICATION_ERROR"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="com.app.lotus.admin.seminar" level="INFO" additivity="false">
+        <appender-ref ref="ADMIN_SEMINAR"/>
+        <appender-ref ref="ADMIN_SEMINAR_ERROR"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="com.app.lotus.admin.application" level="INFO" additivity="false">
+        <appender-ref ref="ADMIN_APPLICATION"/>
+        <appender-ref ref="ADMIN_APPLICATION_ERROR"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="com.app.lotus.admin.faq" level="INFO" additivity="false">
+        <appender-ref ref="ADMIN_FAQ"/>
+        <appender-ref ref="ADMIN_FAQ_ERROR"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="com.app.lotus.admin.filter" level="INFO" additivity="false">
+        <appender-ref ref="ADMIN_FILTER"/>
+        <appender-ref ref="ADMIN_FILTER_ERROR"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <!-- ================================================================
+         LOGGER : user サブパッケージ別
+    ================================================================ -->
+
+    <logger name="com.app.lotus.user.auth" level="INFO" additivity="false">
+        <appender-ref ref="USER_AUTH"/>
+        <appender-ref ref="USER_AUTH_ERROR"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="com.app.lotus.user.top" level="INFO" additivity="false">
+        <appender-ref ref="USER_TOP"/>
+        <appender-ref ref="USER_TOP_ERROR"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="com.app.lotus.user.information" level="INFO" additivity="false">
+        <appender-ref ref="USER_INFORMATION"/>
+        <appender-ref ref="USER_INFORMATION_ERROR"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="com.app.lotus.user.faq" level="INFO" additivity="false">
+        <appender-ref ref="USER_FAQ"/>
+        <appender-ref ref="USER_FAQ_ERROR"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="com.app.lotus.user.inquiry" level="INFO" additivity="false">
+        <appender-ref ref="USER_INQUIRY"/>
+        <appender-ref ref="USER_INQUIRY_ERROR"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="com.app.lotus.user.seminar" level="INFO" additivity="false">
+        <appender-ref ref="USER_SEMINAR"/>
+        <appender-ref ref="USER_SEMINAR_ERROR"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="com.app.lotus.user.account" level="INFO" additivity="false">
+        <appender-ref ref="USER_ACCOUNT"/>
+        <appender-ref ref="USER_ACCOUNT_ERROR"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="com.app.lotus.user.profile" level="INFO" additivity="false">
+        <appender-ref ref="USER_PROFILE"/>
+        <appender-ref ref="USER_PROFILE_ERROR"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="com.app.lotus.user.filter" level="INFO" additivity="false">
+        <appender-ref ref="USER_FILTER"/>
+        <appender-ref ref="USER_FILTER_ERROR"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="com.app.lotus.user.config" level="INFO" additivity="false">
+        <appender-ref ref="USER_CONFIG"/>
+        <appender-ref ref="USER_CONFIG_ERROR"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <!-- Spring / Hibernate / その他フレームワーク → コンソールのみ -->
+    <root level="WARN">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>
