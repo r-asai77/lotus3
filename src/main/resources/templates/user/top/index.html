@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head th:replace="~{user/layout/base :: head('トップ')}"></head>
+<body>
+
+<nav th:replace="~{user/layout/base :: header}"></nav>
+
+<div class="content-wrapper container-fluid px-4 py-4">
+
+    <!-- 挨拶 -->
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h5 class="mb-0 fw-bold text-dark">
+                <i class="bi bi-house-door me-2 text-primary"></i>トップページ
+            </h5>
+            <p class="text-muted small mb-0">最新のインフォメーションをお届けします</p>
+        </div>
+        <a th:href="@{/information}" class="btn btn-outline-primary btn-sm">
+            <i class="bi bi-list-ul me-1"></i>インフォメーション一覧
+        </a>
+    </div>
+
+    <!-- クイックリンク -->
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+            <a th:href="@{/information}" class="text-decoration-none">
+                <div class="card h-100 text-center p-3">
+                    <i class="bi bi-bell fs-2 text-primary mb-2"></i>
+                    <div class="fw-semibold small">インフォメーション</div>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-md-3">
+            <a th:href="@{/faq}" class="text-decoration-none">
+                <div class="card h-100 text-center p-3">
+                    <i class="bi bi-question-circle fs-2 text-success mb-2"></i>
+                    <div class="fw-semibold small">FAQ</div>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-md-3">
+            <a th:href="@{/inquiry}" class="text-decoration-none">
+                <div class="card h-100 text-center p-3">
+                    <i class="bi bi-chat-dots fs-2 text-warning mb-2"></i>
+                    <div class="fw-semibold small">問い合わせ</div>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-md-3">
+            <a th:href="@{/seminar}" class="text-decoration-none">
+                <div class="card h-100 text-center p-3">
+                    <i class="bi bi-calendar-check fs-2 text-info mb-2"></i>
+                    <div class="fw-semibold small">セミナー申込</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- インフォメーション -->
+    <div class="card">
+        <div class="card-header bg-white d-flex align-items-center justify-content-between py-3">
+            <span><i class="bi bi-bell-fill text-primary me-2"></i>最新インフォメーション</span>
+            <a th:href="@{/information}" class="btn btn-link btn-sm text-decoration-none p-0">
+                すべて見る <i class="bi bi-chevron-right"></i>
+            </a>
+        </div>
+        <div class="card-body p-0">
+            <ul class="list-group list-group-flush">
+
+                <!-- ダミーデータ -->
+                <li class="list-group-item px-4 py-3">
+                    <div class="d-flex align-items-start gap-3">
+                        <span class="badge bg-danger mt-1">重要</span>
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <a th:href="@{/information/1}" class="text-decoration-none text-dark fw-semibold">
+                                    システムメンテナンスのお知らせ
+                                </a>
+                                <span class="text-muted small ms-3 text-nowrap">2026-06-29</span>
+                            </div>
+                            <p class="text-muted small mb-0 mt-1">
+                                2026年7月5日（日）午前2時〜6時の間、システムメンテナンスを実施します。
+                            </p>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="list-group-item px-4 py-3">
+                    <div class="d-flex align-items-start gap-3">
+                        <span class="badge bg-primary mt-1">お知らせ</span>
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <a th:href="@{/information/2}" class="text-decoration-none text-dark fw-semibold">
+                                    新しいセミナー日程が追加されました
+                                </a>
+                                <span class="text-muted small ms-3 text-nowrap">2026-06-25</span>
+                            </div>
+                            <p class="text-muted small mb-0 mt-1">
+                                7月・8月のセミナー日程を公開しました。お早めにお申し込みください。
+                            </p>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="list-group-item px-4 py-3">
+                    <div class="d-flex align-items-start gap-3">
+                        <span class="badge bg-secondary mt-1">一般</span>
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <a th:href="@{/information/3}" class="text-decoration-none text-dark fw-semibold">
+                                    よくあるご質問を更新しました
+                                </a>
+                                <span class="text-muted small ms-3 text-nowrap">2026-06-20</span>
+                            </div>
+                            <p class="text-muted small mb-0 mt-1">
+                                FAQページにお問い合わせの多い質問を追加しました。ご参照ください。
+                            </p>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="list-group-item px-4 py-3">
+                    <div class="d-flex align-items-start gap-3">
+                        <span class="badge bg-primary mt-1">お知らせ</span>
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <a th:href="@{/information/4}" class="text-decoration-none text-dark fw-semibold">
+                                    資格更新に関するご案内
+                                </a>
+                                <span class="text-muted small ms-3 text-nowrap">2026-06-15</span>
+                            </div>
+                            <p class="text-muted small mb-0 mt-1">
+                                資格の有効期限が近い方へ更新手続きのご案内をお送りしました。
+                            </p>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<th:block th:replace="~{user/layout/base :: scripts}"></th:block>
+</body>
+</html>
